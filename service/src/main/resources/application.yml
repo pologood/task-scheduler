@@ -1,0 +1,43 @@
+
+logging:
+  file: ${user.home}/logs/demo.log
+  level:
+    com:
+      passiontec: debug
+    org:
+      springframework: info
+server:
+  port: 8099
+  servlet-path: /demo
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  profiles:
+    active: local
+---
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/qrtz?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 1234
+    driverClassName: com.mysql.jdbc.Driver
+    validation-query: SELECT 1
+    test-while-idle: true
+  redis:
+    host : 127.0.0.1
+    port : 6379
+    timeout : 10000
+    jobChannel: irs_quartz_job_channel
+    jobStatusChannel: irs_quartz_job_status_channel
+  profiles: local
+---
+spring:
+  profiles: develop
+---
+spring:
+  profiles: test
+

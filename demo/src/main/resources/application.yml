@@ -1,0 +1,34 @@
+
+logging:
+  file: ${user.home}/logs/demo.log
+  level:
+    com:
+      passiontec: debug
+    org:
+      springframework: info
+server:
+  port: 7099
+  servlet-path: /quartz
+  jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+#      serialization-inclusion: NON_EMPTY
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+  quartz:
+    group: irs_quartz_task_instance_demo
+    threadCount: 5
+    redisAddress: 127.0.0.1:6379
+    redisPassWord:
+    jobChannel: irs_quartz_job_channel
+    jobStatusChannel: irs_quartz_job_status_channel
+---
+spring:
+  profiles: develop
+---
+spring:
+  profiles: test
+

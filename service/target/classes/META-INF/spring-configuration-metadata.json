@@ -1,0 +1,40 @@
+{
+  "groups": [{
+    "name": ".scheduling",
+    "type": "com.games.job.server.configure.SchedulerConfig",
+    "sourceType": "com.games.job.server.configure.SchedulerConfig"
+  }],
+  "properties": [
+    {
+      "name": ".scheduling.cluster-check-in-interval",
+      "type": "java.lang.Long",
+      "sourceType": "com.games.job.server.configure.SchedulerConfig",
+      "defaultValue": 1500
+    },
+    {
+      "name": ".scheduling.disabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.games.job.server.configure.SchedulerConfig",
+      "defaultValue": false
+    },
+    {
+      "name": ".scheduling.max-misfires-to-handle-at-atime",
+      "type": "java.lang.Long",
+      "sourceType": "com.games.job.server.configure.SchedulerConfig",
+      "defaultValue": 1
+    },
+    {
+      "name": ".scheduling.misfire-threshold",
+      "type": "java.lang.Long",
+      "sourceType": "com.games.job.server.configure.SchedulerConfig",
+      "defaultValue": 120000
+    },
+    {
+      "name": ".scheduling.thread-count",
+      "type": "java.lang.Integer",
+      "sourceType": "com.games.job.server.configure.SchedulerConfig",
+      "defaultValue": 20
+    }
+  ],
+  "hints": []
+}

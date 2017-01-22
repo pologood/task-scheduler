@@ -1,0 +1,15 @@
+com\games\job\demo\model\TaskModel.class
+com\games\job\demo\service\JobProcessor.class
+com\games\job\demo\service\TaskInitBean.class
+com\games\job\demo\utils\JsonUtils.class
+com\games\job\demo\service\JobProcessor$Poller.class
+com\games\job\demo\enums\TaskStatus.class
+com\games\job\demo\service\QuartzChannel.class
+com\games\job\demo\Demo.class
+com\games\job\demo\annotation\IrsQuartz.class
+com\games\job\demo\configure\QuartzRedisConfig.class
+com\games\job\demo\task\Job.class
+com\games\job\demo\service\JobProcessor$Schedule.class
+com\games\job\demo\utils\JsonObjectMapper.class
+com\games\job\demo\service\AnnotationDemo.class
+com\games\job\demo\service\JobProcessor$1.class
