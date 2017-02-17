@@ -1,9 +1,9 @@
 package com.games.job.server.service;
 
+import com.games.job.common.enums.TaskStatus;
+import com.games.job.common.model.TaskModel;
 import com.games.job.server.ApplicationTest;
 import com.games.job.server.entity.Task;
-import com.games.job.server.enums.TaskStatus;
-import com.games.job.server.model.TaskModel;
 import com.games.job.server.repository.TaskRepository;
 import org.junit.Assert;
 import org.junit.Test;

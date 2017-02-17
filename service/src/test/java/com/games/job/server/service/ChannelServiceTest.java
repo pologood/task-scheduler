@@ -1,9 +1,11 @@
 package com.games.job.server.service;
 
+import com.games.job.common.enums.TaskStatus;
+import com.games.job.common.model.TaskModel;
 import com.games.job.server.ApplicationTest;
-import com.games.job.server.enums.TaskStatus;
-import com.games.job.server.model.TaskModel;
-import com.games.job.server.utils.JsonUtils;
+import com.games.job.common.utils.JsonUtils;
+import com.games.job.server.service.consumer.RedisJobConsumer;
+import com.games.job.server.service.producer.RedisJobProducer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import java.util.Date;
 import java.util.Set;
 
-public class ChannelServiceTest extends ApplicationTest{
+public class ChannelServiceTest extends ApplicationTest {
 
     @Autowired
-    private ChannelService channelService;
+    private RedisJobProducer redisJobProducer;
+
+    @Autowired
+    private RedisJobConsumer redisJobConsumer;
 
     @Value("${spring.redis.jobChannel}")
     private String  jobChannel = "";
@@ -36,7 +41,7 @@ public class ChannelServiceTest extends ApplicationTest{
         taskModel.setCreateTime(new Date());
         taskModel.setTaskGroup("testGroup");
         this.template.delete(taskModel.getTaskGroup());
-        channelService.notifyTaskInstance(taskModel);
+        redisJobProducer.notifyTaskInstance(taskModel);
         SetOperations<String,String> ops =  this.template.opsForSet();
         String value = ops.pop(taskModel.getTaskGroup());
         TaskModel taskModel1 = JsonUtils.fromJson(value,TaskModel.class);
@@ -51,15 +56,15 @@ public class ChannelServiceTest extends ApplicationTest{
        taskModel.setStatus(TaskStatus.INIT.getId());
        taskModel.setCreateTime(new Date());
        taskModel.setTaskGroup(jobChannel);
-        channelService.notifyTaskInstance(taskModel);
+        redisJobProducer.notifyTaskInstance(taskModel);
        TaskModel taskModel1 = new TaskModel();
        taskModel1.setStatus(TaskStatus.INIT.getId());
        taskModel1.setCreateTime(new Date());
        taskModel.setJobName("testJob2");
        taskModel1.setTaskGroup(jobChannel);
-       channelService.notifyTaskInstance(taskModel1);
+        redisJobProducer.notifyTaskInstance(taskModel1);
 
-       Set<TaskModel>  taskModels =  channelService.getTaskFromChannel();
+       Set<TaskModel>  taskModels =  redisJobConsumer.getTaskFromChannel();
        Assert.assertTrue(taskModels.size()==2);
    }
 }

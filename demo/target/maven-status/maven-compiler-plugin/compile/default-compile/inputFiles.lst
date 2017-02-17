@@ -1,12 +1,2 @@
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\task\Job.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\annotation\IrsQuartz.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\utils\JsonObjectMapper.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\configure\QuartzRedisConfig.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\enums\TaskStatus.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\model\TaskModel.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\Demo.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\service\AnnotationDemo.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\service\JobProcessor.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\service\QuartzChannel.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\utils\JsonUtils.java
-E:\vert.x\jobCenter\demo\src\main\java\com\games\job\demo\service\TaskInitBean.java
+E:\vert.x\jobCenter\demo\src\main\java\com\games\job\server\demo\tesk\ScheduleDemo.java
+E:\vert.x\jobCenter\demo\src\main\java\com\games\job\server\demo\Demo.java

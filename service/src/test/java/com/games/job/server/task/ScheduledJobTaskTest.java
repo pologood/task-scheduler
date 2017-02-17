@@ -1,11 +1,10 @@
 package com.games.job.server.task;
 
+import com.games.job.common.enums.TaskStatus;
+import com.games.job.common.model.TaskModel;
 import com.games.job.server.ApplicationTest;
-import com.games.job.server.Task.ScheduledJob;
 import com.games.job.server.entity.Task;
 import com.games.job.server.entity.TaskRecord;
-import com.games.job.server.enums.TaskStatus;
-import com.games.job.server.model.TaskModel;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.server.service.TaskService;

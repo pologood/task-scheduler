@@ -1,16 +1,15 @@
 package com.games.job.server.service;
 
-import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
+import static org.quartz.CronScheduleBuilder.cronSchedule;
 
-
-import com.games.job.server.Task.ScheduledJob;
+import com.games.job.common.enums.TaskStatus;
+import com.games.job.common.model.TaskModel;
+import com.games.job.server.task.ScheduledJob;
 import com.games.job.server.entity.Task;
-import com.games.job.server.enums.TaskStatus;
-import com.games.job.server.model.TaskModel;
 import com.games.job.server.repository.TaskRepository;
-import com.games.job.server.utils.BeanUtils;
+import com.games.job.common.utils.BeanUtils;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wangshichao on 2016/11/15.
@@ -31,7 +31,7 @@ public class TaskService {
     private SchedulerFactoryBean schedulerFactoryBean;
 
     @Autowired
-    private TaskRepository  taskRepository;
+    private TaskRepository taskRepository;
 
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
     /**
@@ -39,7 +39,6 @@ public class TaskService {
      * @param taskModel
      * @return
      */
-    // TODO: 2016/11/15 判断定时任务是否存在然后在添加，task实例会不停的从新启动
     @Transactional
     public void addOrUpdateJob(TaskModel taskModel){
         try{
@@ -138,6 +137,16 @@ public class TaskService {
             taskRepository.save(task);
         });
 
+    }
+
+    /**
+     * 初始化task
+     * @param set
+     */
+    public void initJobs(Set<TaskModel> set ){
+        set.stream().forEach(taskModel -> {
+            this.addOrUpdateJob(taskModel);
+        });
     }
 }
 

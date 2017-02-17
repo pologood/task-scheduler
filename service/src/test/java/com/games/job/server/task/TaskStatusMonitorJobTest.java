@@ -1,11 +1,10 @@
 package com.games.job.server.task;
 
+import com.games.job.common.enums.TaskStatus;
 import com.games.job.server.ApplicationTest;
-import com.games.job.server.Task.TaskStatusMonitorJob;
 import com.games.job.server.entity.Task;
-import com.games.job.server.enums.TaskStatus;
 import com.games.job.server.repository.TaskRepository;
-import com.games.job.server.utils.DateUtils;
+import com.games.job.common.utils.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.quartz.JobExecutionException;
@@ -16,7 +15,7 @@ import java.util.Date;
 /**
  * Created by wangshichao on 2016/11/21.
  */
-public class TaskStatusMonitorJobTest extends ApplicationTest{
+public class TaskStatusMonitorJobTest extends ApplicationTest {
 
     @Autowired
     private TaskStatusMonitorJob taskStatusMonitorJob;

@@ -1,4 +1,3 @@
-
 logging:
   file: ${user.home}/logs/demo.log
   level:
@@ -31,7 +30,7 @@ spring:
     host : 127.0.0.1
     port : 6379
     timeout : 10000
-    jobChannel: irs_quartz_job_channel
+    jobChannel: quartz_job_channel
     jobStatusChannel: irs_quartz_job_status_channel
   profiles: local
 ---

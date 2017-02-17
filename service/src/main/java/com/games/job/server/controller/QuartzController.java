@@ -1,34 +1,34 @@
 package com.games.job.server.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.games.job.server.entity.Task;
+import com.games.job.server.entity.restful.Result;
 import com.games.job.server.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @CrossOrigin(maxAge = 3600L)
-@RequestMapping("/irs/quartz")
+@RequestMapping("/quartz")
 public class QuartzController {
 
     @Autowired
     private TaskService taskService;
 
-    @RequestMapping(value = "/task/delete", method = RequestMethod.DELETE)
-    public Object delete(@RequestBody Integer taskId) {
-
+    @RequestMapping(value = "/task/delete/{taskId}")
+    public Result delTask(@PathParam(value = "taskId") Integer taskId) {
         taskService.deleteJob(taskId);
-        Map<String, Object> map = new HashMap<>();
-        map.put("status", "ok");
-        return map;
+        return new Result();
     }
 
     @RequestMapping(value = "/task/list", method = RequestMethod.GET)
-    public List<Task>  list() {
-        return  taskService.listAllTask();
+    public Result<List<Task>>  getTasks() {
+        Result<List<Task>> result = new Result<>();
+        result.setData(taskService.listAllTask());
+        return result;
     }
 
 }
