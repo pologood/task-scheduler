@@ -2,6 +2,7 @@ package com.games.job.client.service.consumer;
 
 import com.games.job.client.service.channel.Channel;
 import com.games.job.client.service.channel.RedisChannel;
+import com.games.job.common.constant.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
  * @ide:IntelliJ IDEA
  */
 @Component
-public abstract class RedisJobConsumer extends JobConsumer {
+public class RedisJobConsumer extends JobConsumer {
     @Autowired
     private RedisChannel redisChannel;
 
@@ -21,5 +22,9 @@ public abstract class RedisJobConsumer extends JobConsumer {
     @Override
     Channel getChannel() {
         return redisChannel;
+    }
+    @Override
+    String getTaskGroup() {
+        return Constants.TASK_GROUP_NAME;
     }
 }

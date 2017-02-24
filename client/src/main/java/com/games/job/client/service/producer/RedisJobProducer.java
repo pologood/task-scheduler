@@ -14,11 +14,11 @@ public class RedisJobProducer extends JobProducer {
     private static final Logger log = LoggerFactory.getLogger(RedisJobProducer.class);
 
     @Autowired
-    private RedisChannel quartzChannel;
+    private RedisChannel redisChannel;
 
     @Override
     public void sendJob(TaskModel taskModel) {
-        quartzChannel.sendJobToChannel(taskModel);
+        redisChannel.sendTask(taskModel);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.games.job.server.demo.tesk;
 
 import com.games.job.client.annotation.Quartz;
-import com.games.job.client.task.Job;
+import com.games.job.client.job.Job;
 import org.springframework.stereotype.Service;
 
 

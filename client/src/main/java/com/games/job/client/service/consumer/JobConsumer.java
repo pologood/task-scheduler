@@ -1,7 +1,7 @@
 package com.games.job.client.service.consumer;
 
 import com.games.job.client.service.channel.Channel;
-import com.games.job.client.task.Job;
+import com.games.job.client.job.Job;
 import com.games.job.common.enums.TaskStatus;
 import com.games.job.common.model.TaskModel;
 import org.slf4j.Logger;
@@ -43,6 +43,7 @@ public abstract class JobConsumer implements InitializingBean {
     }
 
     abstract String getTaskGroup();
+
     abstract Channel getChannel();
 
     private class Schedule implements Runnable {
@@ -50,7 +51,7 @@ public abstract class JobConsumer implements InitializingBean {
         public void run() {
             log.info("JobProcessor@Schedule task  run");
             try {
-                Set<TaskModel> taskModes = getChannel().getNotificationFromChannel(getTaskGroup());
+                Set<TaskModel> taskModes = getChannel().getNotification(getTaskGroup());
                 for (TaskModel taskModel : taskModes) {
                     // TODO: 2016/11/21 此处必须异步执行
                     executorService.execute(new JobConsumer.Poller(taskModel));
@@ -101,7 +102,7 @@ public abstract class JobConsumer implements InitializingBean {
         beginTaskModel.setStatus(TaskStatus.BEGIN.getId());
         beginTaskModel.setBeginTime(new Date());
         beginTaskModel.initDealTime();
-        getChannel().sendTaskMachineStatusToChannel(beginTaskModel);
+        getChannel().sendTaskStatus(beginTaskModel);
     }
 
     private void sendEndStatus(TaskModel taskModel) {
@@ -109,7 +110,7 @@ public abstract class JobConsumer implements InitializingBean {
         endTaskModel.setEndTime(new Date());
         endTaskModel.setStatus(TaskStatus.END.getId());
         endTaskModel.initDealTime();
-        getChannel().sendTaskMachineStatusToChannel(endTaskModel);
+        getChannel().sendTaskStatus(endTaskModel);
     }
 
     private void sendFailStatus(TaskModel taskModel) {
@@ -117,6 +118,6 @@ public abstract class JobConsumer implements InitializingBean {
         failTaskModel.setStatus(TaskStatus.FAIL.getId());
         failTaskModel.setEndTime(new Date());
         failTaskModel.initDealTime();
-        getChannel().sendTaskMachineStatusToChannel(failTaskModel);
+        getChannel().sendTaskStatus(failTaskModel);
     }
 }

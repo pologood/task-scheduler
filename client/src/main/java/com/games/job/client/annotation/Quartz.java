@@ -16,4 +16,5 @@ public @interface Quartz {
     String groupName() default Constants.TASK_GROUP_NAME;
 
     int retryCount() default 0;
+
 }

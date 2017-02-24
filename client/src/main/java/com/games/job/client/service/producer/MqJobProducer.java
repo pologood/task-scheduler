@@ -18,6 +18,6 @@ public class MqJobProducer extends JobProducer {
 
     @Override
     public void sendJob(TaskModel taskModel) {
-        mqChannel.sendJobToChannel(taskModel);
+        mqChannel.sendTask(taskModel);
     }
 }

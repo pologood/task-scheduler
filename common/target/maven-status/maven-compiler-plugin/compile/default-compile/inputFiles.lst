@@ -2,6 +2,8 @@ E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\enums\TaskStatus.j
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\utils\DateUtils.java
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\model\TaskModel.java
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\utils\JsonObjectMapper.java
+E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\utils\NetUtils.java
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\utils\JsonUtils.java
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\constant\Constants.java
+E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\enums\HttpMethod.java
 E:\vert.x\jobCenter\common\src\main\java\com\games\job\common\utils\BeanUtils.java

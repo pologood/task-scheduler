@@ -31,7 +31,8 @@ public class RedisChannel implements Channel{
 
     private static final Logger log = LoggerFactory.getLogger(RedisChannel.class);
 
-    public void  sendJobToChannel(TaskModel taskModel){
+    @Override
+    public void  sendTask(TaskModel taskModel){
         taskModel.validInitJobModel();
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
          try {
@@ -44,7 +45,8 @@ public class RedisChannel implements Channel{
          }
     }
 
-    public  Set<TaskModel>  getNotificationFromChannel(String group){
+    @Override
+    public  Set<TaskModel>  getNotification(String group){
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         Set<TaskModel> set = new HashSet();
         try {
@@ -65,7 +67,8 @@ public class RedisChannel implements Channel{
         return set;
     }
 
-    public void  sendTaskMachineStatusToChannel(TaskModel taskModel){
+    @Override
+    public void  sendTaskStatus(TaskModel taskModel){
         taskModel.validStatusMachineTaskModel();
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         try {

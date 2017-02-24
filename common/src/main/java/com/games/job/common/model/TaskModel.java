@@ -23,6 +23,7 @@ public class TaskModel {
     private Integer taskId;
     private Integer retryCount;
     private Long  dealTime;
+    private String path;
 
     public TaskModel clone() {
         return this;

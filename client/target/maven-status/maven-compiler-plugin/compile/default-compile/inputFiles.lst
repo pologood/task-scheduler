@@ -3,11 +3,13 @@ E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\Re
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\Channel.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\consumer\JobConsumer.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\MqJobProducer.java
-E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\HttpJobProducer.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\RedisJobProducer.java
-E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\task\Job.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\aop\QuartzRestfulHandler.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\RestfulJobProducer.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\annotation\QuartzRestful.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\job\Job.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\consumer\MqJobConsumer.java
-E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\consumer\DefaultJobConsumer.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\RestfulChannel.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\JobProducer.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\annotation\Quartz.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\MqChannel.java

@@ -17,7 +17,7 @@ import java.util.*;
 public class TaskServiceTest extends ApplicationTest{
 
     @Autowired
-    private TaskService  taskService;
+    private JobService jobService;
 
     @Autowired
     private TaskRepository taskRepository;
@@ -34,7 +34,7 @@ public class TaskServiceTest extends ApplicationTest{
         if(task!=null){
             taskRepository.delete(task.getId());
         }
-        taskService.addOrUpdateJob(taskModel);
+        jobService.addOrModJob(taskModel);
         Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getStatus().intValue()== TaskStatus.INIT.getId());
         Assert.assertTrue(insertTask.getRetryCount().intValue()==5);
@@ -60,7 +60,7 @@ public class TaskServiceTest extends ApplicationTest{
         taskModel.setBeanName("testBeanName");
         taskModel.setCronExpression("0 0/6 * * * ?");
         taskModel.setRetryCount(6);
-        taskService.addOrUpdateJob(taskModel);
+        jobService.addOrModJob(taskModel);
         Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getCronExpression().equals(taskModel.getCronExpression()));
         Assert.assertTrue(insertTask.getRetryCount().intValue()==taskModel.getRetryCount().intValue());
@@ -82,7 +82,7 @@ public class TaskServiceTest extends ApplicationTest{
             taskRepository.save(oldTask);
         }
         Task taskGroupAndJobName = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
-        taskService.deleteJob(taskGroupAndJobName.getId());
+        jobService.delJob(taskGroupAndJobName.getId());
         Task byIdTask  =  taskRepository.findOne(taskGroupAndJobName.getId());
         Assert.assertNull(byIdTask);
     }
@@ -110,7 +110,7 @@ public class TaskServiceTest extends ApplicationTest{
         taskModel.setEndTime(new Date());
         List<TaskModel> list  =  new ArrayList<>();
         list.add(taskModel);
-        taskService.batchUpdateTaskMachineStatus(list);
+        jobService.modTasksStatus(list);
         Task byIdTask = taskRepository.findOne(taskGroupAndJobName.getId());
         Assert.assertTrue(byIdTask.getStatus()==TaskStatus.FAIL.getId());
     }

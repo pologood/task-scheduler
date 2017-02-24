@@ -3,7 +3,7 @@ package com.games.job.server.demo.tesk;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.games.job.client.service.consumer.DefaultJobConsumer;
+import com.games.job.client.service.consumer.RedisJobConsumer;
 import com.games.job.common.utils.JsonUtils;
 import com.games.job.server.demo.ApplicationTest;
 import org.junit.Assert;
@@ -24,7 +24,8 @@ import redis.clients.jedis.ShardedJedisPool;
 public class JobProcesserTest extends ApplicationTest {
 
     @Autowired
-    private DefaultJobConsumer defaultJobProcessor;
+    @Qualifier("redisJobConsumer")
+    private RedisJobConsumer redisJobConsumer;
 
     @Value("${spring.quartz.group}")
     private String group = "";
@@ -50,7 +51,7 @@ public class JobProcesserTest extends ApplicationTest {
         taskModel.setCronExpression("xxoo");
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         shardedJedis.del(jobStatusChannel);
-        defaultJobProcessor.process(taskModel);
+        redisJobConsumer.process(taskModel);
         Set<String> stringSet = new HashSet();
             while (true) {
                 String taskJson = shardedJedis.spop(jobStatusChannel);
@@ -84,7 +85,7 @@ public class JobProcesserTest extends ApplicationTest {
         taskModel.setTaskId(23);
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         shardedJedis.del(jobStatusChannel);
-        defaultJobProcessor.process(taskModel);
+        redisJobConsumer.process(taskModel);
         Set<String> stringSet = new HashSet();
         while (true) {
             String taskJson = shardedJedis.spop(jobStatusChannel);

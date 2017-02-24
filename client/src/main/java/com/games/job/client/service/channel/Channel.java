@@ -13,9 +13,9 @@ import java.util.Set;
  */
 public interface Channel {
 
-    void  sendJobToChannel(TaskModel taskModel);
+    void  sendTask(TaskModel taskModel);
 
-    Set<TaskModel> getNotificationFromChannel(String group);
+    void  sendTaskStatus(TaskModel taskModel);
 
-    void  sendTaskMachineStatusToChannel(TaskModel taskModel);
+    Set<TaskModel> getNotification(String group);
 }

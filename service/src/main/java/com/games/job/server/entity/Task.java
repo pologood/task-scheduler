@@ -26,5 +26,6 @@ public class Task extends Base{
     private Integer  retryCounted;
     private Date  sendTime;
     private String beanName;
+    private String path;//restful调用地址
 }
 

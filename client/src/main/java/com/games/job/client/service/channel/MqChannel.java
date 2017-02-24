@@ -1,6 +1,7 @@
 package com.games.job.client.service.channel;
 
 import com.games.job.common.model.TaskModel;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -11,19 +12,20 @@ import java.util.Set;
  * @full_name:com.games.job.client.service.channel.MqChannel
  * @ide:IntelliJ IDEA
  */
+@Component
 public class MqChannel implements Channel{
     @Override
-    public void sendJobToChannel(TaskModel taskModel) {
+    public void sendTask(TaskModel taskModel) {
 
     }
 
     @Override
-    public Set<TaskModel> getNotificationFromChannel(String group) {
+    public Set<TaskModel> getNotification(String group) {
         return null;
     }
 
     @Override
-    public void sendTaskMachineStatusToChannel(TaskModel taskModel) {
+    public void sendTaskStatus(TaskModel taskModel) {
 
     }
 }

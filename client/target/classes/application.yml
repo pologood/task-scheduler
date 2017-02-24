@@ -5,6 +5,12 @@ logging:
       passiontec: debug
     org:
       springframework: info
+server:
+  port: 8099
+  servlet-path: /
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
 #      serialization-inclusion: NON_EMPTY
 spring:
   profiles:

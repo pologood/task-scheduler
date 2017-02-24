@@ -10,4 +10,6 @@ package com.games.job.common.constant;
 public class Constants {
 
     public static final String TASK_GROUP_NAME="group";
+
+    public static final String SCHEMA  ="http://";
 }
