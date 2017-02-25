@@ -10,8 +10,8 @@ import com.games.job.common.utils.JsonUtils;
 import com.games.job.common.utils.NetUtils;
 import com.games.job.server.entity.Task;
 import com.games.job.server.entity.TaskRecord;
-import com.games.job.server.entity.restful.ResponseCode;
 import com.games.job.server.entity.restful.Result;
+import com.games.job.server.enums.ResponseCode;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.common.utils.BeanUtils;
@@ -57,16 +57,18 @@ public class ScheduledJob implements Job {
         addLastTaskRecord(task);
         initThisTimeTask(task);
         String path = task.getPath();
+        //restful 触发任务
         if(StringUtils.isNotBlank(path)){
             path=path+"?taskId="+taskId;
             Map<String,String> params = Maps.newConcurrentMap();
-            params.put("taskId",taskId+"");
+            params.put("id",taskId+"");
             String ret = NetUtils.sendMap(path,params, HttpMethod.GET);
             Result result = JsonUtils.fromJson(ret,Result.class);
-            if(result.getCode()!= ResponseCode.OPT_SUCCESSFUL.getCode()){
+            if(result.getCode()!= ResponseCode.OPT_OK.getCode()){
                 task.setStatus(TaskStatus.FAIL.getId());
                 task.setEndTime(new Date());
                 taskRepository.save(task);
+                // TODO: 2017/2/25 失败重试机制
             }
         }else{
             TaskModel taskModel = new TaskModel();

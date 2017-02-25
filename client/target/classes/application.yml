@@ -5,13 +5,10 @@ logging:
       passiontec: debug
     org:
       springframework: info
-server:
-  port: 8099
-  servlet-path: /
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
 
-#      serialization-inclusion: NON_EMPTY
+job:
+  server: localhost:8080/client/getTask
+
 spring:
   profiles:
     active: local
@@ -24,6 +21,12 @@ spring:
     redisPassWord:
     jobChannel: quartz_job_channel
     jobStatusChannel: quartz_job_status_channel
+   redis:
+      host : 127.0.0.1
+      port : 6379
+      timeout : 10000
+      jobChannel: quartz_job_channel
+      jobStatusChannel: quartz_job_status_channel
 ---
 spring:
   profiles: develop

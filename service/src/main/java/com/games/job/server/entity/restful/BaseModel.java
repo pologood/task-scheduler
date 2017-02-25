@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @full_name:com.games.job.server.entity.restful.Base
  * @ide:IntelliJ IDEA
  */
-public class Base {
+public class BaseModel {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

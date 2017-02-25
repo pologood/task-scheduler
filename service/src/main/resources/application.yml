@@ -5,11 +5,13 @@ logging:
       passiontec: debug
     org:
       springframework: info
+
 server:
-  port: 8099
-  servlet-path: /demo
+  port: 8080
+  servlet-path: /
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+
 spring:
   jpa:
     properties:
@@ -19,6 +21,7 @@ spring:
     active: local
 ---
 spring:
+  profiles: local
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qrtz?useUnicode=true&characterEncoding=utf8
     username: root
@@ -31,8 +34,7 @@ spring:
     port : 6379
     timeout : 10000
     jobChannel: quartz_job_channel
-    jobStatusChannel: irs_quartz_job_status_channel
-  profiles: local
+    jobStatusChannel: quartz_job_status_channel
 ---
 spring:
   profiles: develop

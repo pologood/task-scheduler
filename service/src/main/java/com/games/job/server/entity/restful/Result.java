@@ -1,5 +1,8 @@
 package com.games.job.server.entity.restful;
 
+
+import com.games.job.server.enums.ResponseCode;
+
 /**
  * @author:liujh
  * @create_time:2017/2/17 16:52
@@ -7,7 +10,7 @@ package com.games.job.server.entity.restful;
  * @full_name:com.games.job.server.entity.restful.Result
  * @ide:IntelliJ IDEA
  */
-public class Result<T> {
+public class Result<T> extends BaseModel {
     public static final int OK_CODE = 200;
 
     private static final String OK_MSG = "OK";

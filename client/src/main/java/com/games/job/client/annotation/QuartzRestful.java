@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 import com.games.job.common.constant.Constants;
 
 @Documented
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface QuartzRestful {
 

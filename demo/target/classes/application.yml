@@ -5,19 +5,13 @@ logging:
       passiontec: debug
     org:
       springframework: info
-#      serialization-inclusion: NON_EMPTY
+
 spring:
   profiles:
     active: local
 ---
 spring:
   profiles: local
-  quartz:
-    threadCount: 5
-    redisAddress: 127.0.0.1:6379
-    redisPassWord:
-    jobChannel: quartz_job_channel
-    jobStatusChannel: quartz_job_status_channel
 ---
 spring:
   profiles: develop

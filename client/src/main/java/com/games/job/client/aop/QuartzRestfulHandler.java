@@ -4,6 +4,7 @@ import com.games.job.client.annotation.QuartzRestful;
 import com.games.job.client.service.channel.Channel;
 import com.games.job.common.enums.TaskStatus;
 import com.games.job.common.model.TaskModel;
+import com.google.common.base.Preconditions;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,6 +28,7 @@ import java.util.Date;
 @Component
 @Aspect
 public class QuartzRestfulHandler {
+
     private final static Logger logger = LoggerFactory.getLogger(QuartzRestfulHandler.class);
 
     @Autowired
@@ -35,8 +37,10 @@ public class QuartzRestfulHandler {
     @Around(value = "@annotation(quartzRestful)")
     public Object around(ProceedingJoinPoint pjp, QuartzRestful quartzRestful){
         try {
-            Integer taskId = 0;
-            // TODO: 2017/2/24 获取参数taskId 
+
+            Object[] args = pjp.getArgs();
+            Preconditions.checkArgument(args!=null&&args.length==1,"task method must have only one param.");
+            Integer taskId = (Integer) args[0];
             sendBeginStatus(taskId);
             Object ret = pjp.proceed();
             sendEndStatus(taskId);
@@ -47,21 +51,21 @@ public class QuartzRestfulHandler {
     }
 
     private void sendBeginStatus(Integer taskId) {
-        TaskModel beginTaskModel = new TaskModel();
-        beginTaskModel.setTaskId(taskId);
-        beginTaskModel.setStatus(TaskStatus.BEGIN.getId());
-        beginTaskModel.setBeginTime(new Date());
-        beginTaskModel.initDealTime();
-        restfulChannel.sendTaskStatus(beginTaskModel);
+        TaskModel taskModel = new TaskModel();
+        taskModel.setTaskId(taskId);
+        taskModel.setStatus(TaskStatus.BEGIN.getId());
+        taskModel.setBeginTime(new Date());
+        taskModel.initDealTime();
+        restfulChannel.sendTaskStatus(taskModel);
     }
 
     private void sendEndStatus(Integer taskId) {
-        TaskModel endTaskModel = new TaskModel();
-        endTaskModel.setTaskId(taskId);
-        endTaskModel.setEndTime(new Date());
-        endTaskModel.setStatus(TaskStatus.END.getId());
-        endTaskModel.initDealTime();
-        restfulChannel.sendTaskStatus(endTaskModel);
+        TaskModel taskModel = new TaskModel();
+        taskModel.setTaskId(taskId);
+        taskModel.setEndTime(new Date());
+        taskModel.setStatus(TaskStatus.END.getId());
+        taskModel.initDealTime();
+        restfulChannel.sendTaskStatus(taskModel);
     }
 
 }
