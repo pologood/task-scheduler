@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.games.job.server.entity.Task;
 import com.games.job.server.entity.TaskRecord;
-import com.games.job.server.entity.restful.Base;
+import com.games.job.server.entity.restful.BaseModel;
 
 
-public class TaskVO extends Base{
+public class TaskVO extends BaseModel{
     private Task task;
     private List<TaskRecord> records;
 

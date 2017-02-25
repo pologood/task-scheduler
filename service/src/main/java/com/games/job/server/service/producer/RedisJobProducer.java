@@ -16,12 +16,6 @@ public class RedisJobProducer implements JobProducer {
     @Autowired
     private StringRedisTemplate template;
 
-    @Value("${spring.redis.jobChannel}")
-    private String  jobChannel = "";
-
-    @Value("${spring.redis.jobStatusChannel}")
-    private String  jobStatusChannel = "";
-
     /**
      * 时间到时进行任务发送
      * @param task

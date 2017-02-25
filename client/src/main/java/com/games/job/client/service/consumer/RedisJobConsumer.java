@@ -1,10 +1,9 @@
 package com.games.job.client.service.consumer;
 
+import com.games.job.client.service.JobAgent;
 import com.games.job.client.service.channel.Channel;
 import com.games.job.client.service.channel.RedisChannel;
 import com.games.job.common.constant.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author:liujh
@@ -13,11 +12,8 @@ import org.springframework.stereotype.Component;
  * @full_name:com.games.job.client.service.DefaultJobProcessor
  * @ide:IntelliJ IDEA
  */
-@Component
-public class RedisJobConsumer extends JobConsumer {
-    @Autowired
+public class RedisJobConsumer extends JobAgent {
     private RedisChannel redisChannel;
-
 
     @Override
     Channel getChannel() {

@@ -12,4 +12,6 @@ public class Constants {
     public static final String TASK_GROUP_NAME="group";
 
     public static final String SCHEMA  ="http://";
+
+    public static final String NOTIFY_JOB_TOPIC="task-topic";
 }

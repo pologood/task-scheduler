@@ -26,12 +26,8 @@ public class RedisJobConsumer implements JobConsumer {
     private String  jobStatusChannel = "";
 
 
-    /**
-     * 得到所有的任务以便更新状态
-     * @return
-     */
     @Override
-    public Set<TaskModel> getTaskFromMachineChannel(){
+    public Set<TaskModel> getTaskFromStatusChannel(){
         return getTasks(jobStatusChannel);
     }
 

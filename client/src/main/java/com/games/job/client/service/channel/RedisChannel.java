@@ -19,14 +19,13 @@ import redis.clients.jedis.ShardedJedisPool;
 @Component
 public class RedisChannel implements Channel{
 
-    @Value("${spring.quartz.jobChannel}")
-    private String  jobChannel = "";
+    @Value("${spring.redis.jobChannel}")
+    private String  jobChannel = "quartz_job_channel";
 
-    @Value("${spring.quartz.jobStatusChannel}")
-    private String  jobStatusChannel = "";
+    @Value("${spring.redis.jobStatusChannel}")
+    private String  jobStatusChannel = "quartz_job_status_channel";
 
     @Autowired
-    @Qualifier("quartzJedisPool")
     private ShardedJedisPool shardedJedisPool;
 
     private static final Logger log = LoggerFactory.getLogger(RedisChannel.class);

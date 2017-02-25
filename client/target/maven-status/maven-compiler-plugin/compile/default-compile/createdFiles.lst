@@ -1,10 +1,10 @@
 com\games\job\client\service\channel\Channel.class
 com\games\job\client\service\producer\MqJobProducer.class
+com\games\job\client\configure\RedisConfig.class
 com\games\job\client\service\producer\RedisJobProducer.class
 com\games\job\client\service\channel\RestfulChannel.class
 com\games\job\client\service\consumer\JobConsumer.class
 com\games\job\client\service\consumer\JobConsumer$1.class
-com\games\job\client\configure\QuartzRedisConfig.class
 com\games\job\client\aop\QuartzRestfulHandler.class
 com\games\job\client\service\consumer\RedisJobConsumer.class
 com\games\job\client\service\producer\RestfulJobProducer.class

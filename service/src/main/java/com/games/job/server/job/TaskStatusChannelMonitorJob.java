@@ -32,7 +32,7 @@ public class TaskStatusChannelMonitorJob implements Job {
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
         logger.info("TaskMachineStatusChannelJob start");
-        Set<TaskModel> set = redisJobConsumer.getTaskFromMachineChannel();
+        Set<TaskModel> set = redisJobConsumer.getTaskFromStatusChannel();
         if(set.isEmpty()){
             return;
         }

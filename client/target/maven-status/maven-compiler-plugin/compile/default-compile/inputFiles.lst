@@ -1,4 +1,3 @@
-E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\configure\QuartzRedisConfig.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\RedisChannel.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\channel\Channel.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\consumer\JobConsumer.java
@@ -6,6 +5,7 @@ E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\M
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\RedisJobProducer.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\aop\QuartzRestfulHandler.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\producer\RestfulJobProducer.java
+E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\configure\RedisConfig.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\annotation\QuartzRestful.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\job\Job.java
 E:\vert.x\jobCenter\client\src\main\java\com\games\job\client\service\consumer\MqJobConsumer.java

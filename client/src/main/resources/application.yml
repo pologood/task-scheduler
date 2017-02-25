@@ -17,16 +17,20 @@ spring:
   profiles: local
   quartz:
     threadCount: 5
-    redisAddress: 127.0.0.1:6379
-    redisPassWord:
+
     jobChannel: quartz_job_channel
     jobStatusChannel: quartz_job_status_channel
-   redis:
-      host : 127.0.0.1
-      port : 6379
-      timeout : 10000
-      jobChannel: quartz_job_channel
-      jobStatusChannel: quartz_job_status_channel
+  redis:
+    address: 127.0.0.1:6379
+    password:
+    timeout : 10000
+    jobChannel: quartz_job_channel
+    jobStatusChannel: quartz_job_status_channel
+  kafka:
+    address: 127.0.0.1:2181
+    jobTopic: quartz_job_topic
+    jobStatusTopic: quartz_job_status_topic
+
 ---
 spring:
   profiles: develop

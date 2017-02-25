@@ -17,15 +17,15 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 public class SchedulerBeanConfig {
 
     @Autowired
-    private SchedulerConfig config;
+    private SchedulerConfig schedulerConfig;
 
     @Bean
-    SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, IrsJobFactory jobFactory) throws Exception {
+    SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource, JobFactory jobFactory) throws Exception {
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
         bean.setDataSource(dataSource);
         bean.setStartupDelay(3);
         bean.setOverwriteExistingJobs(true);
-        bean.setSchedulerName("IrsScheduler");
+        bean.setSchedulerName("scheduler");
         bean.setJobFactory(jobFactory);
         ScheduleLoggingListener loggingListener = new ScheduleLoggingListener();
         bean.setSchedulerListeners(loggingListener);
@@ -35,15 +35,16 @@ public class SchedulerBeanConfig {
         schedulerProps.setProperty(PROP_SCHED_INSTANCE_ID, AUTO_GENERATE_INSTANCE_ID);
         schedulerProps.setProperty(PROP_SCHED_THREAD_NAME, "karma.scheduler.worker");
         schedulerProps.setProperty(PROP_SCHED_MAKE_SCHEDULER_THREAD_DAEMON, "true");
-        schedulerProps.setProperty(PROP_THREAD_POOL_PREFIX + ".threadCount", String.valueOf(config.getThreadCount()));
+        schedulerProps.setProperty(PROP_THREAD_POOL_PREFIX + ".threadCount",
+                String.valueOf(schedulerConfig.getThreadCount()));
         schedulerProps.setProperty(PROP_JOB_STORE_PREFIX + ".isClustered", "true");
         schedulerProps.setProperty(PROP_JOB_STORE_PREFIX + ".useProperties", "true");
         schedulerProps.setProperty(PROP_JOB_STORE_PREFIX + ".clusterCheckinInterval",
-                String.valueOf(config.getClusterCheckInInterval()));
+                String.valueOf(schedulerConfig.getClusterCheckInInterval()));
         schedulerProps.setProperty(PROP_JOB_STORE_PREFIX + ".maxMisfiresToHandleAtATime",
-                String.valueOf(config.getMaxMisfiresToHandleAtATime()));
-        schedulerProps
-                .setProperty(PROP_JOB_STORE_PREFIX + ".misfireThreshold", String.valueOf(config.getMisfireThreshold()));
+                String.valueOf(schedulerConfig.getMaxMisfiresToHandleAtATime()));
+        schedulerProps.setProperty(PROP_JOB_STORE_PREFIX + ".misfireThreshold",
+                String.valueOf(schedulerConfig.getMisfireThreshold()));
         bean.setQuartzProperties(schedulerProps);
         return bean;
     }

@@ -2,7 +2,7 @@ package com.games.job.server.entity;
 
 import java.util.Date;
 
-import com.games.job.server.entity.restful.Base;
+import com.games.job.server.entity.restful.BaseModel;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "qrtz_task")
-public class Task extends Base{
+public class Task extends BaseModel{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

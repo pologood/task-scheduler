@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class IrsJobFactory  extends AdaptableJobFactory {
+public class JobFactory extends AdaptableJobFactory {
 
     @Autowired
     private AutowireCapableBeanFactory capableBeanFactory;

@@ -6,7 +6,6 @@ com\games\job\server\service\consumer\RedisJobConsumer.class
 com\games\job\server\controller\MetricsController.class
 com\games\job\server\entity\restful\Result.class
 com\games\job\server\controller\TaskController.class
-com\games\job\server\configure\IrsJobFactory.class
 com\games\job\server\controller\AdminController.class
 com\games\job\server\job\LocalJobInitBean.class
 com\games\job\server\service\producer\MqJobProducer.class
@@ -18,13 +17,15 @@ com\games\job\server\service\consumer\JobConsumer.class
 com\games\job\server\service\producer\JobProducer.class
 com\games\job\server\service\producer\RedisJobProducer.class
 com\games\job\server\job\TaskRetryJob.class
+com\games\job\server\enums\ResponseCode.class
+com\games\job\server\entity\restful\BaseModel.class
 com\games\job\server\controller\RedisMonitorController.class
 com\games\job\server\configure\SchedulerBeanConfig.class
-com\games\job\server\entity\restful\ResponseCode.class
 com\games\job\server\repository\TaskRepository.class
 com\games\job\server\entity\VO\TaskVO.class
+com\games\job\server\controller\TaskConsumerController.class
+com\games\job\server\configure\JobFactory.class
 com\games\job\server\controller\MqMonitorController.class
-com\games\job\server\entity\restful\Base.class
 com\games\job\server\job\ScheduledJob.class
 com\games\job\server\configure\ScheduleLoggingListener.class
 com\games\job\server\job\TaskChannelMonitorJob.class
