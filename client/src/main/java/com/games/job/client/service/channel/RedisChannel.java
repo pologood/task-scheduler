@@ -16,36 +16,41 @@ import com.games.job.common.model.TaskModel;
 import redis.clients.jedis.ShardedJedis;
 import redis.clients.jedis.ShardedJedisPool;
 
-@Component
 public class RedisChannel implements Channel{
 
-    @Value("${spring.redis.jobChannel}")
-    private String  jobChannel = "quartz_job_channel";
-
-    @Value("${spring.redis.jobStatusChannel}")
-    private String  jobStatusChannel = "quartz_job_status_channel";
-
-    @Autowired
     private ShardedJedisPool shardedJedisPool;
+
+    private String  jobChannel;
+    private String  jobStatusChannel;
 
     private static final Logger log = LoggerFactory.getLogger(RedisChannel.class);
 
     @Override
-    public void  sendTask(TaskModel taskModel){
-        taskModel.validInitJobModel();
+    public void  putTask(TaskModel taskModel){
+        send(jobChannel,taskModel);
+    }
+
+
+    @Override
+    public void  putTaskStatus(TaskModel taskModel){
+        send(jobStatusChannel,taskModel);
+    }
+
+    private void send(String channel,TaskModel taskModel){
+        taskModel.validStatusMachineTaskModel();
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
-         try {
-             shardedJedis.sadd(jobChannel, JsonUtils.toJson(taskModel));
-         }catch (Exception e){
-             log.error("@sendJobToChannel - add  job fail - para:{}",taskModel,e);
-             throw new RuntimeException("add  job fail ");
-         }finally {
-             shardedJedis.close();
-         }
+        try {
+            shardedJedis.sadd(channel, JsonUtils.toJson(taskModel));
+        }catch (Exception e){
+            log.error("@sendTaskMachineStatusToChannel - send  status fail - para:{}",taskModel,e);
+            throw new RuntimeException("send  status fail");
+        }finally {
+            shardedJedis.close();
+        }
     }
 
     @Override
-    public  Set<TaskModel>  getNotification(String group){
+    public  Set<TaskModel>  getTasks(String group){
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         Set<TaskModel> set = new HashSet();
         try {
@@ -66,17 +71,27 @@ public class RedisChannel implements Channel{
         return set;
     }
 
-    @Override
-    public void  sendTaskStatus(TaskModel taskModel){
-        taskModel.validStatusMachineTaskModel();
-        ShardedJedis shardedJedis = shardedJedisPool.getResource();
-        try {
-            shardedJedis.sadd(jobStatusChannel, JsonUtils.toJson(taskModel));
-        }catch (Exception e){
-            log.error("@sendTaskMachineStatusToChannel - send  status fail - para:{}",taskModel,e);
-            throw new RuntimeException("send  status fail");
-        }finally {
-            shardedJedis.close();
-        }
+    public ShardedJedisPool getShardedJedisPool() {
+        return shardedJedisPool;
+    }
+
+    public void setShardedJedisPool(ShardedJedisPool shardedJedisPool) {
+        this.shardedJedisPool = shardedJedisPool;
+    }
+
+    public String getJobChannel() {
+        return jobChannel;
+    }
+
+    public void setJobChannel(String jobChannel) {
+        this.jobChannel = jobChannel;
+    }
+
+    public String getJobStatusChannel() {
+        return jobStatusChannel;
+    }
+
+    public void setJobStatusChannel(String jobStatusChannel) {
+        this.jobStatusChannel = jobStatusChannel;
     }
 }

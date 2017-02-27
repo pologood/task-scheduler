@@ -6,6 +6,9 @@ logging:
     org:
       springframework: info
 
+quartz:
+  group: demo
+
 spring:
   profiles:
     active: local

@@ -15,7 +15,7 @@ import com.games.job.server.enums.ResponseCode;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.common.utils.BeanUtils;
-import com.games.job.server.service.producer.RedisJobProducer;
+import com.games.job.server.service.TaskManager;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
@@ -33,7 +33,7 @@ public class ScheduledJob implements Job {
     private static final Logger logger = LoggerFactory.getLogger(ScheduledJob.class);
 
     @Autowired
-    private RedisJobProducer redisJobProducer;
+    private TaskManager taskManager;
 
     @Autowired
     private TaskRecordRepository taskRecordRepository;
@@ -76,7 +76,7 @@ public class ScheduledJob implements Job {
             taskModel.setTaskId(task.getId());
             taskModel.setTaskGroup(task.getTaskGroup());
             taskModel.validNotifyTaskModel();
-            redisJobProducer.notifyTaskInstance(taskModel);
+            taskManager.sendTask(taskModel);
         }
     }
 

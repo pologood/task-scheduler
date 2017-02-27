@@ -7,7 +7,7 @@ import com.games.job.server.entity.TaskRecord;
 import com.games.job.server.entity.VO.TaskVO;
 import com.games.job.server.entity.restful.Result;
 import com.games.job.server.repository.TaskRecordRepository;
-import com.games.job.server.service.JobService;
+import com.games.job.server.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ import javax.websocket.server.PathParam;
 public class TaskController {
 
     @Autowired
-    private JobService jobService;
+    private TaskService taskService;
     @Autowired
     private TaskRecordRepository taskRecordRepository;
 
@@ -30,7 +30,7 @@ public class TaskController {
 
     @RequestMapping(value = "/del/{taskId}",method = RequestMethod.GET)
     public Result delTask(@PathParam(value = "taskId") Integer taskId) {
-        jobService.delJob(taskId);
+        taskService.delQuartz(taskId);
         return new Result();
     }
 
@@ -42,14 +42,14 @@ public class TaskController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Result<List<Task>>  getTasks() {
         Result<List<Task>> result = new Result<>();
-        result.setData(jobService.getTasks());
+        result.setData(taskService.getTasks());
         return result;
     }
 
     @RequestMapping(value = "/get/{taskId}",method = RequestMethod.GET)
     public Result<TaskVO> getTask(@PathParam(value = "taskId") Integer taskId){
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(taskId);
-        Task task = jobService.getTask(taskId);
+        Task task = taskService.getTask(taskId);
         TaskVO taskVO = new TaskVO();
         taskVO.setTask(task);
         taskVO.setRecords(taskRecords);

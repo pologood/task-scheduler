@@ -7,7 +7,7 @@ import com.games.job.server.entity.Task;
 import com.games.job.server.entity.TaskRecord;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.repository.TaskRepository;
-import com.games.job.server.service.JobService;
+import com.games.job.server.service.TaskService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.quartz.JobExecutionException;
@@ -31,7 +31,7 @@ public class ScheduledJobTaskTest extends ApplicationTest {
     private TaskRecordRepository taskRecordRepository;
 
     @Autowired
-    private JobService jobService;
+    private TaskService jobService;
 
     @Test
    public void  sendInitJob() throws JobExecutionException {

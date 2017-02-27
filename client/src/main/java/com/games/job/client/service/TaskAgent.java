@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,10 @@ public class TaskAgent implements InitializingBean {
     private ApplicationContext applicationContext;
     
     @Autowired
-    private TaskReporter taskReporter;
+    private TaskManager taskManager;
+
+    @Value("${quartz.group}")
+    private String quartzGroup= Constants.TASK_GROUP_NAME;
 
     private static final Logger log = LoggerFactory.getLogger(TaskAgent.class);
 
@@ -52,7 +56,7 @@ public class TaskAgent implements InitializingBean {
             }
             Quartz quartz = object.getClass().getDeclaredAnnotation(Quartz.class);
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(quartz.groupName());
+            taskModel.setTaskGroup(quartzGroup);
             taskModel.setJobName(quartz.jobName());
             taskModel.setCronExpression(quartz.cronExpression());
             taskModel.setRetryCount(quartz.retryCount());
@@ -67,7 +71,7 @@ public class TaskAgent implements InitializingBean {
             // TODO: 2017/2/25 校验requestmapping
             QuartzRestful quartzRestful = object.getClass().getDeclaredAnnotation(QuartzRestful.class);
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(quartzRestful.groupName());
+            taskModel.setTaskGroup(quartzGroup);
             taskModel.setJobName(quartzRestful.jobName());
             taskModel.setCronExpression(quartzRestful.cronExpression());
             taskModel.setRetryCount(quartzRestful.retryCount());
@@ -76,6 +80,7 @@ public class TaskAgent implements InitializingBean {
             String url = quartzRestful.url();
             Preconditions.checkArgument(userRestful,"userRestful is must true");
             StringBuffer path = new StringBuffer(Constants.SCHEMA);
+            // TODO: 2017/2/27 资源路径 
 //            path.append(NetUtils.getPrivateAddress()).append(":").append(port)
 //                    .append(servletPath).append("/");
             if(StringUtils.isNotBlank(url)){
@@ -86,7 +91,7 @@ public class TaskAgent implements InitializingBean {
             taskModel.setPath(path.toString());
             taskModels.add(taskModel);
         }
-        taskReporter.sendTasks(taskModels);
+        taskManager.sendTasks(taskModels);
     }
 
     private boolean isImplJob(Class c){

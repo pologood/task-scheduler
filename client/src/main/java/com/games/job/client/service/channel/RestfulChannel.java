@@ -20,19 +20,18 @@ import java.util.Set;
  * @full_name:com.games.job.client.service.channel.HttpChannel
  * @ide:IntelliJ IDEA
  */
-@Component
 public class RestfulChannel implements Channel{
     private final static Logger LOGGER = LoggerFactory.getLogger(RestfulChannel.class);
-    @Value("${job.server}")
+
     private String serverPath;
 
     @Override
-    public void sendTask(TaskModel taskModel) {
+    public void putTask(TaskModel taskModel) {
         send(taskModel);
     }
 
     @Override
-    public void sendTaskStatus(TaskModel taskModel) {
+    public void putTaskStatus(TaskModel taskModel) {
         send(taskModel);
     }
 
@@ -46,7 +45,15 @@ public class RestfulChannel implements Channel{
     }
 
     @Override
-    public Set<TaskModel> getNotification(String group) {
+    public Set<TaskModel> getTasks(String group) {
         return null;
+    }
+
+    public String getServerPath() {
+        return serverPath;
+    }
+
+    public void setServerPath(String serverPath) {
+        this.serverPath = serverPath;
     }
 }

@@ -7,7 +7,7 @@ import com.games.job.common.model.TaskModel;
 import com.games.job.server.entity.Task;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.common.utils.BeanUtils;
-import com.games.job.server.service.producer.RedisJobProducer;
+import com.games.job.server.service.TaskManager;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -29,13 +29,12 @@ public class TaskRetryJob implements Job {
     private TaskRepository taskRepository;
 
     @Autowired
-    private RedisJobProducer redisJobProducer;
+    private TaskManager taskManager;
 
     private  static  final  Long  TIME_OUT_RANGE = 1000 * 60 * 10l;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-
         logger.info("TaskStatusMonitorJob start");
         dealHaveSendStatusAndTimeOutTask();
         dealNoFeedBackStatusTask();
@@ -75,7 +74,7 @@ public class TaskRetryJob implements Job {
                 logger.info("@execute - retry notify task instance - para:{}", task);
                 TaskModel taskModel = new TaskModel();
                 BeanUtils.copyProperties(task, taskModel);
-                redisJobProducer.notifyTaskInstance(taskModel);
+                taskManager.sendTask(taskModel);
                 taskRepository.incRetryCountById(task.getId());
             } else {
                 logger.info("@execute - over retry count set retryFail status - para:{}", task);

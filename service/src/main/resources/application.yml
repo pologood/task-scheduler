@@ -33,8 +33,6 @@ spring:
     host : 127.0.0.1
     port : 6379
     timeout : 10000
-    jobChannel: quartz_job_channel
-    jobStatusChannel: quartz_job_status_channel
 ---
 spring:
   profiles: develop

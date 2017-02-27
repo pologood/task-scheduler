@@ -1,0 +1,15 @@
+logging:
+  file: ${user.home}/logs/demo.log
+  level:
+    com:
+      passiontec: debug
+    org:
+      springframework: info
+
+spring:
+  redis:
+    jobChannel: quartz_job_channel
+    jobStatusChannel: quartz_job_status_channel
+  kafka:
+    jobTopic: quartz_job_topic
+    jobStatusTopic: quartz_job_status_topic

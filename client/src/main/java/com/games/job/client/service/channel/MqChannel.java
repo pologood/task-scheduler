@@ -18,32 +18,50 @@ import java.util.Set;
  * @full_name:com.games.job.client.service.channel.MqChannel
  * @ide:IntelliJ IDEA
  */
-@Component
 public class MqChannel implements Channel{
 
-    @Value("${spring.kafka.jobTopic}")
-    private String  jobTopic = "quartz_job_topic";
-
-    @Value("${spring.kafka.jobStatusTopic}")
-    private String  jobStatusTopic = "quartz_job_status_topic";
-
-    @Autowired
     private KafkaTemplate kafkaTemplate;
 
+    private String  jobTopic;
+    private String  jobStatusTopic;
+
     @Override
-    public void sendTask(TaskModel taskModel) {
+    public void putTask(TaskModel taskModel) {
         kafkaTemplate.send(jobTopic,taskModel);
     }
 
-
-
     @Override
-    public Set<TaskModel> getNotification(String group){
+    public Set<TaskModel> getTasks(String group){
         return null;
     }
 
     @Override
-    public void sendTaskStatus(TaskModel taskModel) {
+    public void putTaskStatus(TaskModel taskModel) {
         kafkaTemplate.send(jobStatusTopic,taskModel);
+    }
+
+
+    public String getJobTopic() {
+        return jobTopic;
+    }
+
+    public void setJobTopic(String jobTopic) {
+        this.jobTopic = jobTopic;
+    }
+
+    public String getJobStatusTopic() {
+        return jobStatusTopic;
+    }
+
+    public void setJobStatusTopic(String jobStatusTopic) {
+        this.jobStatusTopic = jobStatusTopic;
+    }
+
+    public KafkaTemplate getKafkaTemplate() {
+        return kafkaTemplate;
+    }
+
+    public void setKafkaTemplate(KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 }

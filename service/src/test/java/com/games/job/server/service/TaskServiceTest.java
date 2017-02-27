@@ -17,7 +17,7 @@ import java.util.*;
 public class TaskServiceTest extends ApplicationTest{
 
     @Autowired
-    private JobService jobService;
+    private TaskService jobService;
 
     @Autowired
     private TaskRepository taskRepository;
