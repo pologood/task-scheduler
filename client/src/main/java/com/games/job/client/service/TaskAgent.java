@@ -5,6 +5,7 @@ import com.games.job.client.annotation.QuartzRestful;
 import com.games.job.client.job.Job;
 import com.games.job.common.constant.Constants;
 import com.games.job.common.model.TaskModel;
+import com.games.job.common.utils.NetUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -35,8 +36,13 @@ public class TaskAgent implements InitializingBean {
     @Autowired
     private TaskManager taskManager;
 
-    @Value("${quartz.group}")
+    @Value("${spring.quartz.group}")
     private String quartzGroup= Constants.TASK_GROUP_NAME;
+
+    @Value("${server.port}")
+    private Integer serverPort=8080;
+    @Value("${server.servlet-path}")
+    private String serverPath="/";
 
     private static final Logger log = LoggerFactory.getLogger(TaskAgent.class);
 
@@ -68,7 +74,6 @@ public class TaskAgent implements InitializingBean {
         Map<String, Object> quartzRestfulMap = applicationContext.getBeansWithAnnotation(QuartzRestful.class);
         for (Map.Entry<String, Object> entry : quartzRestfulMap.entrySet()) {
             Object object = entry.getValue();
-            // TODO: 2017/2/25 校验requestmapping
             QuartzRestful quartzRestful = object.getClass().getDeclaredAnnotation(QuartzRestful.class);
             TaskModel taskModel = new TaskModel();
             taskModel.setTaskGroup(quartzGroup);
@@ -80,13 +85,10 @@ public class TaskAgent implements InitializingBean {
             String url = quartzRestful.url();
             Preconditions.checkArgument(userRestful,"userRestful is must true");
             StringBuffer path = new StringBuffer(Constants.SCHEMA);
-            // TODO: 2017/2/27 资源路径 
-//            path.append(NetUtils.getPrivateAddress()).append(":").append(port)
-//                    .append(servletPath).append("/");
+            path.append(NetUtils.getPrivateAddress()).append(":")
+                    .append(serverPort).append(serverPath).append("/");
             if(StringUtils.isNotBlank(url)){
                 path.append(url);
-            }else{
-                //todo 通过注解获取url
             }
             taskModel.setPath(path.toString());
             taskModels.add(taskModel);

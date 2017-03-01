@@ -46,9 +46,7 @@ public class QuartzRestfulHandler {
             sendEndStatus(taskId);
             return ret;
         } catch (Throwable e) {
-            if(taskId!=0){
-                sendFailStatus(taskId);
-            }
+            sendFailStatus(taskId);
             return  null;
         }
     }

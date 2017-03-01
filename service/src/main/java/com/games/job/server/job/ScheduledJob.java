@@ -56,20 +56,10 @@ public class ScheduledJob implements Job {
         Task task = taskRepository.findOne(taskId);
         addLastTaskRecord(task);
         initThisTimeTask(task);
+
         String path = task.getPath();
-        //restful 触发任务
-        if(StringUtils.isNotBlank(path)){
-            path=path+"?taskId="+taskId;
-            Map<String,String> params = Maps.newConcurrentMap();
-            params.put("id",taskId+"");
-            String ret = NetUtils.sendMap(path,params, HttpMethod.GET);
-            Result result = JsonUtils.fromJson(ret,Result.class);
-            if(result.getCode()!= ResponseCode.OPT_OK.getCode()){
-                task.setStatus(TaskStatus.FAIL.getId());
-                task.setEndTime(new Date());
-                taskRepository.save(task);
-                // TODO: 2017/2/25 失败重试机制
-            }
+        if(StringUtils.isNotBlank(path)){ //restful 触发任务
+           retry(path,taskId,null);
         }else{
             TaskModel taskModel = new TaskModel();
             taskModel.setBeanName(task.getBeanName());
@@ -77,6 +67,39 @@ public class ScheduledJob implements Job {
             taskModel.setTaskGroup(task.getTaskGroup());
             taskModel.validNotifyTaskModel();
             taskManager.sendTask(taskModel);
+        }
+    }
+
+    private String fireRestfulJob(String path,Integer taskId){
+        Map<String,String> params = Maps.newConcurrentMap();
+        params.put("id",taskId+"");
+        return NetUtils.sendMap(path,params,HttpMethod.GET);
+    }
+
+    private void retry(String path,Integer taskId,Task task){
+        if(task==null){
+            task = taskRepository.getOne(taskId);
+        }
+        if(task!=null){
+            if(task.getRetryCount() > task.getRetryCounted()){
+                try {
+                    String result = fireRestfulJob(path,taskId);
+                    if(StringUtils.isNotBlank(result)){
+                        Result ret = JsonUtils.fromJson(result,Result.class);
+                        if(ret.getCode()!= ResponseCode.OPT_OK.getCode()){
+                            retry(path,taskId,task);
+                        }
+                    }else{
+                        retry(path,taskId,task);
+                    }
+                }catch (Exception e){
+                    retry(path,taskId,task);
+                }
+            }else{
+                logger.info("@execute restful - over retry count set retryFail status - para:{}", task);
+                task.setStatus(TaskStatus.RETRYFAIL.getId());
+                taskRepository.save(task);
+            }
         }
     }
 

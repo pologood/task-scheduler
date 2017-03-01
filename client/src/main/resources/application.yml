@@ -6,9 +6,6 @@ logging:
     org:
       springframework: info
 
-job:
-  server: localhost:8080/client/getTask
-
 spring:
   profiles:
     active: local
@@ -16,7 +13,9 @@ spring:
 spring:
   profiles: local
   quartz:
+    group: demo
     threadCount: 5
+    server: localhost:8080/client/getTask
   redis:
     address: 127.0.0.1:6379
     password:
