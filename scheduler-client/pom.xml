@@ -9,16 +9,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>demo</artifactId>
+    <artifactId>scheduler-client</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.games.infrastructure</groupId>
-            <artifactId>client</artifactId>
+            <artifactId>scheduler-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-
     </dependencies>
-
 </project>

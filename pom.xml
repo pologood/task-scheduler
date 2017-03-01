@@ -10,10 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>service</module>
-        <module>client</module>
-        <module>common</module>
-        <module>demo</module>
+        <module>scheduler-example</module>
+        <module>scheduler-client</module>
+        <module>scheduler-common</module>
+        <module>scheduler-service</module>
     </modules>
 
     <developers>

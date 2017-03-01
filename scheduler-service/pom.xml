@@ -10,13 +10,13 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>service</artifactId>
+    <artifactId>scheduler-service</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>com.games.infrastructure</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>scheduler-common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
