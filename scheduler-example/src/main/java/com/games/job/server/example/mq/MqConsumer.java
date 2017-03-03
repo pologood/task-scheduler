@@ -1,17 +1,18 @@
-package com.games.job.client.service;
-
-import com.games.job.common.listener.MqListener;
-import com.games.job.common.model.TaskModel;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+package com.games.job.server.example.mq;
 
 import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.kafka.annotation.KafkaListener;
+
+import com.games.job.client.service.JobHandler;
+import com.games.job.client.service.TaskManager;
+import com.games.job.common.listener.MqListener;
+import com.games.job.common.model.TaskModel;
 
 /**
  * @author:liujh
@@ -20,7 +21,6 @@ import java.util.concurrent.Executors;
  * @full_name:com.games.job.client.service.MqMonitor
  * @ide:IntelliJ IDEA
  */
-@Component
 public class MqMonitor extends MqListener {
 
     @Autowired

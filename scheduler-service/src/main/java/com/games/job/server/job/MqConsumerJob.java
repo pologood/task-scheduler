@@ -18,12 +18,9 @@ import java.util.Optional;
  * @full_name:com.games.job.server.job.MaListener
  * @ide:IntelliJ IDEA
  */
-@Component
 public class MqMonitorJob extends MqListener {
     @Autowired
     private TaskService taskService;
-
-
 
     @KafkaListener(topics = {"quartz_job_topic"})
     public void getTask(ConsumerRecord<?, ?> record){

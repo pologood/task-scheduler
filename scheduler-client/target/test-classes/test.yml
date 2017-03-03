@@ -6,20 +6,16 @@ logging:
     org:
       springframework: info
 
-# 本机暴露服务地址
+# client服务地址
 server:
   port: 8080
   servlet-path:
 
 spring:
-  profiles:
-    active: local
----
-spring:
   quartz:
     group: demo
-    threadCount: 5
-    server: localhost:8080/client/getTask  #restful上报task接口
+#    threadCount: 5
+    server: localhost:8080/client/getTask  #restful上报数据服务
   redis:
     address: 127.0.0.1:6379
     password:
@@ -33,9 +29,3 @@ spring:
     address: 127.0.0.1:2181
     jobTopic: quartz_job_topic
     jobStatusTopic: quartz_job_status_topic
----
-spring:
-  profiles: develop
----
-spring:
-  profiles: test

@@ -1,12 +1,14 @@
-package com.games.job.client.configure;
+package com.games.job.server.example.config;
 
-import com.games.job.client.service.TaskManager;
-import com.games.job.client.service.channel.Channel;
-import com.games.job.client.service.channel.RedisChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.games.job.client.service.TaskManager;
+import com.games.job.client.service.channel.Channel;
+import com.games.job.client.service.channel.RedisChannel;
+
 import redis.clients.jedis.ShardedJedisPool;
 
 /**
@@ -17,7 +19,7 @@ import redis.clients.jedis.ShardedJedisPool;
  * @ide:IntelliJ IDEA
  */
 @Configuration
-public class TaskManagerBeanConfig {
+public class TaskManagerConfig {
 
     @Value("${spring.redis.jobChannel}")
     private String  jobChannel;

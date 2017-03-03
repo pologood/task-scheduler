@@ -1,5 +1,6 @@
 package com.games.job.client;
 
+import com.Main;
 import com.games.job.client.service.TaskManager;
 import com.games.job.common.enums.TaskStatus;
 import com.games.job.common.model.TaskModel;
@@ -8,7 +9,6 @@ import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.SpringApplicationConfiguration;

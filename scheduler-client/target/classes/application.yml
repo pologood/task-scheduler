@@ -5,15 +5,11 @@ logging:
       passiontec: debug
     org:
       springframework: info
+
 server:
   port: 8080
   servlet-path:
 
-
-spring:
-  profiles:
-    active: local
----
 spring:
   quartz:
     group: demo
@@ -32,9 +28,3 @@ spring:
     address: 127.0.0.1:2181
     jobTopic: quartz_job_topic
     jobStatusTopic: quartz_job_status_topic
----
-spring:
-  profiles: develop
----
-spring:
-  profiles: test
