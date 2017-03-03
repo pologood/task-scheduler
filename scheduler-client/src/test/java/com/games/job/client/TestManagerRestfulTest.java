@@ -21,7 +21,7 @@ import com.games.job.client.service.TaskManager;
 @SpringApplicationConfiguration(classes = Main.class)
 @WebAppConfiguration
 @TestPropertySource(locations = {"classpath:test.yml"})
-public class TestManagerMqTest {
+public class TestManagerRestfulTest {
 
     @Autowired
     private TaskManager taskManager;

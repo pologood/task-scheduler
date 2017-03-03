@@ -12,9 +12,9 @@ com\games\job\server\service\channel\MqChannel.class
 com\games\job\server\controller\TaskReceiveController.class
 com\games\job\server\job\LocalJobInitBean.class
 com\games\job\server\configure\SchedulerConfig.class
+com\games\job\server\job\TaskFeedJob.class
 com\games\job\server\entity\Task.class
 com\games\job\server\entity\TaskRecord.class
-com\games\job\server\job\TaskRetryJob.class
 com\games\job\server\enums\ResponseCode.class
 com\games\job\server\entity\restful\BaseModel.class
 com\games\job\server\controller\RedisMonitorController.class

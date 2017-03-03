@@ -34,6 +34,9 @@ public class TaskManagerTest extends ApplicationTest{
     @Value("${spring.quartz.group}")
     private String group;
 
+    // TODO: 2017/3/3 1.mq channel测试；2.restful channel测试；3.c-s联合测试；4.example完善；5.压力测试；6.admin控制台。
+    // TODO: 2017/3/3 不清楚的地方搞清楚，1.springboot如何处理.yml文件，一些注解含义，序列化问题。
+
     @Test
     public void test_sentTaskToRedis(){
         String group = "notify";

@@ -20,6 +20,7 @@ public class TaskController {
 
     @Autowired
     private TaskService taskService;
+    // TODO: 2017/3/3 1.cron表达式正确性校验；2.group+jobName唯一性校验；3.restful正确性校验。 
 
 
     @Autowired

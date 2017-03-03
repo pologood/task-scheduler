@@ -16,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
-public class ScheduledJobTaskTest extends ApplicationTest {
+public class ScheduledJobTest extends ApplicationTest {
 
     @Autowired
     private ScheduledJob scheduledJob;
@@ -28,38 +28,39 @@ public class ScheduledJobTaskTest extends ApplicationTest {
     private TaskRecordRepository taskRecordRepository;
 
     @Autowired
-    private TaskService jobService;
+    private TaskService taskService;
 
     @Test
-   public void  sendInitJob() throws JobExecutionException {
-
+   public void  task_initJob() throws JobExecutionException {
         TaskModel taskModel = new TaskModel();
         taskModel.setJobName("sendInitJob");
         taskModel.setTaskGroup("irs-crm-server");
         taskModel.setBeanName("testBeanName");
-        taskModel.setCronExpression("0 0/5 * * * ?");
+        taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(5);
         Task task = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
-        jobService.addOrModQuartz(taskModel);
-        Task task1 = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+        taskService.addOrModQuartz(taskModel);
         taskRecordRepository.deleteAll();
+
+        Task task1 = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         scheduledJob.dealScheduledJob(task1.getId());
         Task result = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+
         Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
         Assert.assertTrue(CollectionUtils.isEmpty(taskRecords));
-        jobService.delQuartz(result.getId());
+        taskService.delQuartz(result.getId());
     }
 
    @Test
-   public void  sendNoInitStatusJobTest(){
+   public void  task_notInitJob(){
 
        TaskModel taskModel = new TaskModel();
-       taskModel.setJobName("sendNoInitStatusJobTest");
-       taskModel.setTaskGroup("irs-crm-server");
+       taskModel.setJobName("notInitJobTest");
+       taskModel.setTaskGroup("my-server");
        taskModel.setBeanName("testBeanName");
        taskModel.setCronExpression("0 0/5 * * * ?");
        taskModel.setRetryCount(5);
@@ -67,16 +68,20 @@ public class ScheduledJobTaskTest extends ApplicationTest {
        if(task!=null){
            taskRepository.delete(task.getId());
        }
-       jobService.addOrModQuartz(taskModel);
+       taskService.addOrModQuartz(taskModel);
+
        Task task1 = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
        task1.setStatus(TaskStatus.NOFEEDBACK.getId());
        taskRepository.save(task1);
+
        taskRecordRepository.deleteAll();
        scheduledJob.dealScheduledJob(task1.getId());
+
        Task result = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
        Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
+
        List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
        Assert.assertTrue(taskRecords.size()==1);
-       jobService.delQuartz(result.getId());
+       taskService.delQuartz(result.getId());
    }
 }

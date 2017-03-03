@@ -22,16 +22,17 @@ public class TaskMonitorJob implements Job {
     private TaskManager taskManager;
 
     @Autowired
-    private TaskService jobService;
+    private TaskService taskService;
 
     private static final Logger logger = LoggerFactory.getLogger(TaskMonitorJob.class);
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        // TODO: 2017/3/3 cron表达式正确性校验，group+jobName唯一性校验
         logger.info("TaskChannelJob  start ");
         Set<TaskModel> set = taskManager.receiveTask();
         if(!set.isEmpty()){
-            jobService.initQuartzs(set);
+            taskService.initQuartzs(set);
         }
         logger.info("TaskChannelJob  end ");
     }

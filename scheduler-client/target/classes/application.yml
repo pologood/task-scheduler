@@ -23,8 +23,8 @@ spring:
     address: 127.0.0.1:6379
     password:
     timeout: 10000
-    jobChannel: quartz_job_channel4
-    jobStatusChannel: quartz_job_status_channel4
+    jobChannel: quartz_job_channel
+    jobStatusChannel: quartz_job_status_channel
     pool:
       maxTotal: 10
       maxIdle: 4

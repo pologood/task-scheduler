@@ -29,7 +29,7 @@ public class LocalJobInitBean implements InitializingBean {
     private void  initTaskMachineStatusChannelListenerJob() throws SchedulerException {
         String jobName = "taskMachineStatusChannelListener";
         String taskGroup = "Quartz";
-        String triggerName = "taskMachineStatusChannelListenerTrigger";
+        String triggerName = "taskStatusChannelListenerTrigger";
         String cronExpression = "0 0/1 * * * ?";
         initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskStatusMonitorJob.class);//ok
     }
@@ -47,9 +47,9 @@ public class LocalJobInitBean implements InitializingBean {
     private void initStatusMonitorJob() throws SchedulerException {
         String jobName = "monitorTaskStatus";
         String taskGroup = "Quartz";
-        String triggerName = "statusMonitorTrigger";
+        String triggerName = "taskStatusMonitorTrigger";
         String cronExpression = "0 0/5 * * * ?";
-        initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskRetryJob.class);//ok
+        initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskFeedJob.class);//ok
     }
 
     private void initScheduler(String jobName, String taskGroup, String triggerName, String cronExpression,Class jobClass) throws SchedulerException {

@@ -54,7 +54,6 @@ public class ScheduledJob implements Job {
             return;
         }
         Task task = taskRepository.findOne(taskId);
-        System.out.println("===============ljh"+new Date());
         addLastTaskRecord(task);
         initThisTimeTask(task);
 
@@ -63,9 +62,10 @@ public class ScheduledJob implements Job {
            retry(path,taskId,null);
         }else{
             TaskModel taskModel = new TaskModel();
-            taskModel.setBeanName(task.getBeanName());
             taskModel.setTaskId(task.getId());
             taskModel.setTaskGroup(task.getTaskGroup());
+            taskModel.setJobName(task.getJobName());
+            taskModel.setBeanName(task.getBeanName());
             taskModel.validNotifyTaskModel();
             taskManager.sendTask(taskModel);
         }
@@ -105,15 +105,18 @@ public class ScheduledJob implements Job {
     }
 
     private void initThisTimeTask(Task task) {
+        task.setBeginTime(null);
         task.setEndTime(null);
         task.setRetryCounted(0);
-        task.setBeginTime(null);
         task.setStatus(TaskStatus.SEND.getId());
         task.setSendTime(new Date());
         taskRepository.save(task);
     }
 
     private void addLastTaskRecord(Task task) {
+        if(task.getStatus()==null||task.getStatus().intValue()==TaskStatus.INIT.getId()){
+            return;
+        }
         TaskRecord taskRecord = new TaskRecord();
         BeanUtils.copyProperties(task, taskRecord);
         taskRecord.setTaskId(task.getId());

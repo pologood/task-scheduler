@@ -21,9 +21,9 @@ import org.springframework.util.CollectionUtils;
  * 任务失败处理
  */
 @Component
-public class TaskRetryJob implements Job {
+public class TaskFeedJob implements Job {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskRetryJob.class);
+    private static final Logger logger = LoggerFactory.getLogger(TaskFeedJob.class);
 
     @Autowired
     private TaskRepository taskRepository;
@@ -31,7 +31,7 @@ public class TaskRetryJob implements Job {
     @Autowired
     private TaskManager taskManager;
 
-    private  static  final  Long  TIME_OUT_RANGE = 1000 * 60 * 10l;
+    private  static  final  Long  TIME_OUT_RANGE = 1000 * 60 * 10L;
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -74,8 +74,8 @@ public class TaskRetryJob implements Job {
                 logger.info("@execute - retry notify task instance - para:{}", task);
                 TaskModel taskModel = new TaskModel();
                 BeanUtils.copyProperties(task, taskModel);
-                taskManager.sendTask(taskModel);
                 taskRepository.incRetryCountById(task.getId());
+                taskManager.sendTask(taskModel);
             } else {
                 logger.info("@execute - over retry count set retryFail status - para:{}", task);
                 task.setStatus(TaskStatus.RETRYFAIL.getId());

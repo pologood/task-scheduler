@@ -12,20 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-public class TaskStatusMonitorJobTest extends ApplicationTest {
+public class TaskFeedJobTest extends ApplicationTest {
 
     @Autowired
-    private TaskRetryJob taskStatusMonitorJob;
+    private TaskFeedJob taskStatusMonitorJob;
 
     @Autowired
     private TaskRepository taskRepository;
 
     @Test
-    public  void   dealHaveSendStatusAndTimeOutTaskTest() throws JobExecutionException {
-
+    public  void   test_taskTimeOut() throws JobExecutionException {
         Task oldTask = new Task();
-        oldTask.setJobName("TaskStatusMonitorJob");
-        oldTask.setTaskGroup("irs-crm-server");
+        oldTask.setTaskGroup("my-server8");
+        oldTask.setJobName("sendAndTimeOutTask");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setSendTime(DateUtils.addMinutes(new Date(),-10));
@@ -37,18 +36,19 @@ public class TaskStatusMonitorJobTest extends ApplicationTest {
             taskRepository.delete(task.getId());
         }
         taskRepository.save(oldTask);
+
         taskStatusMonitorJob.execute(null);
-        Task resultTask = taskRepository.findOne(oldTask.getId());
+        Task resultTask = taskRepository.findById(oldTask.getId());
         Assert.assertTrue(resultTask.getStatus().intValue()==TaskStatus.NOFEEDBACK.getId());
         Assert.assertTrue(resultTask.getRetryCounted().intValue()==1);
     }
 
     @Test
-    public void  dealNoFeedBackStatusTaskTest() throws JobExecutionException {
+    public void  test_taskRetryFail() throws JobExecutionException {
 
         Task oldTask = new Task();
         oldTask.setJobName("dealNoFeedBackStatusTaskTest");
-        oldTask.setTaskGroup("irs-crm-server");
+        oldTask.setTaskGroup("MY-server");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setSendTime(DateUtils.addMinutes(new Date(),-10));
@@ -60,8 +60,9 @@ public class TaskStatusMonitorJobTest extends ApplicationTest {
             taskRepository.delete(task.getId());
         }
         taskRepository.save(oldTask);
+
         taskStatusMonitorJob.execute(null);
-        Task resultTask = taskRepository.findOne(oldTask.getId());
+        Task resultTask = taskRepository.findById(oldTask.getId());
         Assert.assertTrue(resultTask.getStatus().intValue()==TaskStatus.RETRYFAIL.getId());
         Assert.assertTrue(resultTask.getRetryCounted().intValue()==5);
     }

@@ -17,9 +17,9 @@ public class TaskRecord extends BaseModel{
     private Integer Id;
     private String taskGroup;
     private String jobName;
-    private Date  beginTime;
-    private Date  EndTime;
     private Date  createTime;
+    private Date  beginTime;
+    private Date  endTime;
     private Integer taskId;
     private Integer status;
 }

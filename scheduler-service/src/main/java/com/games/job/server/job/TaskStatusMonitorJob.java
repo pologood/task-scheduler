@@ -30,7 +30,6 @@ public class TaskStatusMonitorJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-
         logger.info("TaskMachineStatusChannelJob start");
         Set<TaskModel> set = taskManager.receiveTaskStatus();
         if(set.isEmpty()){
