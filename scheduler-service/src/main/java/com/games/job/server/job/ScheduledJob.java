@@ -54,6 +54,7 @@ public class ScheduledJob implements Job {
             return;
         }
         Task task = taskRepository.findOne(taskId);
+        System.out.println("===============ljh"+new Date());
         addLastTaskRecord(task);
         initThisTimeTask(task);
 

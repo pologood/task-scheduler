@@ -25,7 +25,7 @@ import com.google.common.collect.Maps;
 public class MqConfig {
 
     @Value("${spring.kafka.address}")
-    private String address = "";
+    private String address;
 
     private static final Logger log = LoggerFactory.getLogger(MqConfig.class);
 

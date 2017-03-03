@@ -3,7 +3,7 @@ package com.games.job.server.demo.tesk;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.games.job.client.service.producer.RedisJobProducer;
+import com.games.job.client.service.TaskManager;
 import com.games.job.common.utils.JsonUtils;
 import com.games.job.server.demo.ApplicationTest;
 import org.apache.commons.lang3.StringUtils;
@@ -25,16 +25,16 @@ import redis.clients.jedis.ShardedJedisPool;
 public class TaskInitBeanTest extends ApplicationTest{
 
     @Autowired
-    private RedisJobProducer redisChannelReporter;
+    private TaskManager taskManager;
     @Autowired
     private ShardedJedisPool shardedJedisPool;
 
     @Value("${spring.quartz.group}")
-    private String group = "";
+    private String group ;
     @Value("${spring.quartz.jobChannel}")
-    private String jobChannel = "";
+    private String jobChannel;
     @Value("${spring.quartz.jobStatusChannel}")
-    private String jobStatusChannel = "";
+    private String jobStatusChannel;
     private static final Logger log = LoggerFactory.getLogger(ScheduleDemo.class);
 
     @Test
@@ -42,7 +42,7 @@ public class TaskInitBeanTest extends ApplicationTest{
 
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         shardedJedis.del(jobChannel);
-        redisChannelReporter.initTask();
+//        redisChannelReporter.initTask();
         Set<String> stringSet = new HashSet();
         while (true) {
             String taskJson = shardedJedis.spop(jobChannel);

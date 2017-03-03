@@ -49,10 +49,6 @@ public class RestfulChannel implements Channel{
         return null;
     }
 
-    public String getServerPath() {
-        return serverPath;
-    }
-
     public void setServerPath(String serverPath) {
         this.serverPath = serverPath;
     }

@@ -28,8 +28,7 @@ public class MqMonitor extends MqListener {
     @Autowired
     private TaskManager taskManager;
 
-    @Value("${spring.quartz.threadCount}")
-    private int threadCount = 5;
+    private int threadCount=5;
 
     private ExecutorService executorService;
 

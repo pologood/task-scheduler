@@ -23,10 +23,10 @@ public class TaskManagerBeanConfig {
     private StringRedisTemplate template;
 
     @Value("${spring.redis.jobChannel}")
-    private String  jobChannel = "";
+    private String  jobChannel;
 
     @Value("${spring.redis.jobStatusChannel}")
-    private String  jobStatusChannel = "";
+    private String  jobStatusChannel;
 
     @Bean(name = "taskManager")
     TaskManager taskManager(){

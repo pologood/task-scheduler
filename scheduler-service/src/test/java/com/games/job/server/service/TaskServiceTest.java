@@ -9,32 +9,30 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by wangshichao on 2016/11/22.
- */
 public class TaskServiceTest extends ApplicationTest{
 
     @Autowired
-    private TaskService jobService;
+    private TaskService taskService;
 
     @Autowired
     private TaskRepository taskRepository;
 
     @Test
-    public void  addJobTest(){
+    public void  task_addQuartzJob() {
         TaskModel taskModel = new TaskModel();
         taskModel.setJobName("testJob");
-        taskModel.setTaskGroup("irs-crm-server");
+        taskModel.setTaskGroup("my-server");
         taskModel.setBeanName("testBeanName");
-        taskModel.setCronExpression("0 0/5 * * * ?");
+        taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(5);
         Task task = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
-        jobService.addOrModJob(taskModel);
+        taskService.addOrModQuartz(taskModel);
         Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getStatus().intValue()== TaskStatus.INIT.getId());
         Assert.assertTrue(insertTask.getRetryCount().intValue()==5);
@@ -42,38 +40,40 @@ public class TaskServiceTest extends ApplicationTest{
     }
 
     @Test
-    public void  updateJobTest(){
-
+    public void  task_modQuartzJob()  throws IOException{
         Task oldTask = new Task();
-        oldTask.setJobName("testJob");
-        oldTask.setTaskGroup("irs-crm-server");
+        oldTask.setJobName("testJob1");
+        oldTask.setTaskGroup("myServer1");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setRetryCount(5);
+        oldTask.setRetryCounted(0);
+        oldTask.setStatus(TaskStatus.INIT.getId());
+        oldTask.setCreateTime(new Date());
         Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
         if(task==null){
             taskRepository.save(oldTask);
         }
         TaskModel taskModel = new TaskModel();
-        taskModel.setJobName("testJob");
-        taskModel.setTaskGroup("irs-crm-server");
+        taskModel.setJobName("testJob1");
+        taskModel.setTaskGroup("myServer1");
         taskModel.setBeanName("testBeanName");
-        taskModel.setCronExpression("0 0/6 * * * ?");
-        taskModel.setRetryCount(6);
-        jobService.addOrModJob(taskModel);
+        taskModel.setCronExpression("0 0/1 * * * ?");
+        taskModel.setRetryCount(2);
+        oldTask.setCreateTime(new Date());
+        taskService.addOrModQuartz(taskModel);
         Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getCronExpression().equals(taskModel.getCronExpression()));
         Assert.assertTrue(insertTask.getRetryCount().intValue()==taskModel.getRetryCount().intValue());
     }
 
     @Test
-    public void  deleteJobById(){
-
+    public void  test_delQuartzJob(){
         Task oldTask = new Task();
         oldTask.setJobName("testDeleteJob");
-        oldTask.setTaskGroup("irs-crm-server");
+        oldTask.setTaskGroup("myServer");
         oldTask.setBeanName("testBeanName");
-        oldTask.setCronExpression("0 0/5 * * * ?");
+        oldTask.setCronExpression("0 0/1 * * * ?");
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(0);
@@ -82,17 +82,18 @@ public class TaskServiceTest extends ApplicationTest{
             taskRepository.save(oldTask);
         }
         Task taskGroupAndJobName = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
-        jobService.delJob(taskGroupAndJobName.getId());
-        Task byIdTask  =  taskRepository.findOne(taskGroupAndJobName.getId());
+        Assert.assertNotNull(taskGroupAndJobName);
+        taskService.delQuartz(taskGroupAndJobName.getId());
+        Task byIdTask  =  taskRepository.findById(taskGroupAndJobName.getId());
         Assert.assertNull(byIdTask);
     }
 
-    @Test
-    public void  batchUpdateTaskMachineStatusTest(){
 
+    @Test
+    public void  test_modTaskStatus_batch(){
         Task oldTask = new Task();
         oldTask.setJobName("testDeleteJob");
-        oldTask.setTaskGroup("irs-crm-server");
+        oldTask.setTaskGroup("myServer");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setRetryCount(5);
@@ -104,14 +105,15 @@ public class TaskServiceTest extends ApplicationTest{
         }
         taskRepository.save(oldTask);
         Task taskGroupAndJobName = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+
         TaskModel taskModel = new TaskModel();
         taskModel.setTaskId(taskGroupAndJobName.getId());
         taskModel.setStatus(TaskStatus.FAIL.getId());
         taskModel.setEndTime(new Date());
         List<TaskModel> list  =  new ArrayList<>();
         list.add(taskModel);
-        jobService.modTasksStatus(list);
-        Task byIdTask = taskRepository.findOne(taskGroupAndJobName.getId());
+        taskService.modTasksStatus(list);
+        Task byIdTask = taskRepository.findById(taskGroupAndJobName.getId());
         Assert.assertTrue(byIdTask.getStatus()==TaskStatus.FAIL.getId());
     }
 

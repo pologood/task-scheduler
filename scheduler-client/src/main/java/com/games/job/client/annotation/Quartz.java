@@ -9,7 +9,7 @@ public @interface Quartz {
 
     String jobName() default "";
 
-    String cronExpression()  default "";
+    String cronExpression();
 
     int retryCount() default 0;
 

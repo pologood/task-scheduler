@@ -16,9 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
-/**
- * Created by wangshichao on 2016/11/22.
- */
 public class ScheduledJobTaskTest extends ApplicationTest {
 
     @Autowired
@@ -46,7 +43,7 @@ public class ScheduledJobTaskTest extends ApplicationTest {
         if(task!=null){
             taskRepository.delete(task.getId());
         }
-        jobService.addOrModJob(taskModel);
+        jobService.addOrModQuartz(taskModel);
         Task task1 = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
         taskRecordRepository.deleteAll();
         scheduledJob.dealScheduledJob(task1.getId());
@@ -54,7 +51,7 @@ public class ScheduledJobTaskTest extends ApplicationTest {
         Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
         Assert.assertTrue(CollectionUtils.isEmpty(taskRecords));
-        jobService.delJob(result.getId());
+        jobService.delQuartz(result.getId());
     }
 
    @Test
@@ -70,7 +67,7 @@ public class ScheduledJobTaskTest extends ApplicationTest {
        if(task!=null){
            taskRepository.delete(task.getId());
        }
-       jobService.addOrModJob(taskModel);
+       jobService.addOrModQuartz(taskModel);
        Task task1 = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
        task1.setStatus(TaskStatus.NOFEEDBACK.getId());
        taskRepository.save(task1);
@@ -80,6 +77,6 @@ public class ScheduledJobTaskTest extends ApplicationTest {
        Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
        List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
        Assert.assertTrue(taskRecords.size()==1);
-       jobService.delJob(result.getId());
+       jobService.delQuartz(result.getId());
    }
 }

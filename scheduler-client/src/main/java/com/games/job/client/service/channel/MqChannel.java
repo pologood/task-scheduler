@@ -23,6 +23,7 @@ public class MqChannel implements Channel{
     private KafkaTemplate kafkaTemplate;
 
     private String  jobTopic;
+
     private String  jobStatusTopic;
 
     @Override
@@ -41,25 +42,16 @@ public class MqChannel implements Channel{
     }
 
 
-    public String getJobTopic() {
-        return jobTopic;
-    }
 
     public void setJobTopic(String jobTopic) {
         this.jobTopic = jobTopic;
     }
 
-    public String getJobStatusTopic() {
-        return jobStatusTopic;
-    }
 
     public void setJobStatusTopic(String jobStatusTopic) {
         this.jobStatusTopic = jobStatusTopic;
     }
 
-    public KafkaTemplate getKafkaTemplate() {
-        return kafkaTemplate;
-    }
 
     public void setKafkaTemplate(KafkaTemplate kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;

@@ -2,6 +2,8 @@ package com.games.job.common.model;
 
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Date;
 
@@ -10,7 +12,7 @@ import java.util.Date;
  */
 
 @Data
-public class TaskModel {
+public class TaskModel{
 
     private String taskGroup;
     private String jobName;
@@ -69,5 +71,10 @@ public class TaskModel {
     }
     public void  initDealTime(){
         this.dealTime = new Date().getTime();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

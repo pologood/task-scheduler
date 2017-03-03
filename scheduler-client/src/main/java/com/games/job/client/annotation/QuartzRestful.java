@@ -9,12 +9,12 @@ public @interface QuartzRestful {
 
     String jobName() default "";
 
-    String cronExpression()  default "";
+    String cronExpression();
 
 
     int retryCount() default 0;
 
     boolean useRestful() default true;
 
-    String url() default "";
+    String url();
 }

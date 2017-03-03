@@ -37,12 +37,12 @@ public class TaskAgent implements InitializingBean {
     private TaskManager taskManager;
 
     @Value("${spring.quartz.group}")
-    private String quartzGroup= Constants.TASK_GROUP_NAME;
+    private String quartzGroup;
 
     @Value("${server.port}")
-    private Integer serverPort=8080;
+    private Integer serverPort;
     @Value("${server.servlet-path}")
-    private String serverPath="/";
+    private String serverPath;
 
     private static final Logger log = LoggerFactory.getLogger(TaskAgent.class);
 
@@ -63,7 +63,11 @@ public class TaskAgent implements InitializingBean {
             Quartz quartz = object.getClass().getDeclaredAnnotation(Quartz.class);
             TaskModel taskModel = new TaskModel();
             taskModel.setTaskGroup(quartzGroup);
-            taskModel.setJobName(quartz.jobName());
+            String jobName =quartz.jobName();
+            if(StringUtils.isEmpty(jobName)){
+                jobName=entry.getKey();
+            }
+            taskModel.setJobName(jobName);
             taskModel.setCronExpression(quartz.cronExpression());
             taskModel.setRetryCount(quartz.retryCount());
             taskModel.setBeanName(entry.getKey());
@@ -77,10 +81,15 @@ public class TaskAgent implements InitializingBean {
             QuartzRestful quartzRestful = object.getClass().getDeclaredAnnotation(QuartzRestful.class);
             TaskModel taskModel = new TaskModel();
             taskModel.setTaskGroup(quartzGroup);
-            taskModel.setJobName(quartzRestful.jobName());
+            String jobName =quartzRestful.jobName();
+            if(StringUtils.isEmpty(jobName)){
+                jobName=entry.getKey();
+            }
+            taskModel.setJobName(jobName);
             taskModel.setCronExpression(quartzRestful.cronExpression());
             taskModel.setRetryCount(quartzRestful.retryCount());
             taskModel.setBeanName(entry.getKey());
+
             boolean userRestful = quartzRestful.useRestful();
             String url = quartzRestful.url();
             Preconditions.checkArgument(userRestful,"userRestful is must true");

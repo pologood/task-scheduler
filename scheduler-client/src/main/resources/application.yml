@@ -5,24 +5,33 @@ logging:
       passiontec: debug
     org:
       springframework: info
+server:
+  port: 8080
+  servlet-path:
+
 
 spring:
   profiles:
     active: local
 ---
 spring:
-  profiles: local
   quartz:
     group: demo
     threadCount: 5
-    server: localhost:8080/client/getTask
+    server: localhost:8080/client/getTask  #restful上报数据服务
   redis:
     address: 127.0.0.1:6379
     password:
-    timeout : 10000
+    timeout: 10000
+    jobChannel: quartz_job_channel
+    jobStatusChannel: quartz_job_status_channel
+    pool:
+      maxTotal: 10
+      maxIdle: 4
   kafka:
     address: 127.0.0.1:2181
-
+    jobTopic: quartz_job_topic
+    jobStatusTopic: quartz_job_status_topic
 ---
 spring:
   profiles: develop

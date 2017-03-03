@@ -18,19 +18,23 @@ import redis.clients.jedis.ShardedJedisPool;
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.quartz.address}")
-    private String address = "";
-
+    @Value("${spring.redis.address}")
+    private String address = "127.0.0.1:6379";
     @Value("${spring.redis.password}")
-    private String password = "";
+    private String password;
+
+    @Value("${spring.redis.pool.maxTotal}")
+    private Integer maxTotal = 10;
+    @Value("${spring.redis.pool.maxIdle}")
+    private Integer maxIdle = 4;
 
     private static final Logger log = LoggerFactory.getLogger(RedisConfig.class);
 
     @Bean
     public ShardedJedisPool shardedJedisPool() {
         JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(10);
-        poolConfig.setMaxIdle(4);
+        poolConfig.setMaxTotal(maxTotal);
+        poolConfig.setMaxIdle(maxIdle);
 
         List<JedisShardInfo> shards = new ArrayList<JedisShardInfo>();
         String[] shardedAddress = address.split(",");

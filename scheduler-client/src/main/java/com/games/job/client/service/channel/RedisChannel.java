@@ -27,17 +27,18 @@ public class RedisChannel implements Channel{
 
     @Override
     public void  putTask(TaskModel taskModel){
+        taskModel.validInitJobModel();
         send(jobChannel,taskModel);
     }
 
 
     @Override
     public void  putTaskStatus(TaskModel taskModel){
+        taskModel.validStatusMachineTaskModel();
         send(jobStatusChannel,taskModel);
     }
 
     private void send(String channel,TaskModel taskModel){
-        taskModel.validStatusMachineTaskModel();
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         try {
             shardedJedis.sadd(channel, JsonUtils.toJson(taskModel));
@@ -71,25 +72,16 @@ public class RedisChannel implements Channel{
         return set;
     }
 
-    public ShardedJedisPool getShardedJedisPool() {
-        return shardedJedisPool;
-    }
 
     public void setShardedJedisPool(ShardedJedisPool shardedJedisPool) {
         this.shardedJedisPool = shardedJedisPool;
     }
 
-    public String getJobChannel() {
-        return jobChannel;
-    }
 
     public void setJobChannel(String jobChannel) {
         this.jobChannel = jobChannel;
     }
 
-    public String getJobStatusChannel() {
-        return jobStatusChannel;
-    }
 
     public void setJobStatusChannel(String jobStatusChannel) {
         this.jobStatusChannel = jobStatusChannel;

@@ -1,6 +1,5 @@
 package com.games.job.client.service;
 
-import com.games.job.common.constant.Constants;
 import com.games.job.common.model.TaskModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,11 +30,10 @@ public class JobExecutor implements Runnable{
     @Autowired
     private TaskManager taskManager;
 
-    @Value("${spring.quartz.threadCount}")
-    private int threadCount = 5;
+    private int threadCount=5;
 
-    @Value("${quartz.group}")
-    private String quartzGroup = Constants.TASK_GROUP_NAME;
+    @Value("${spring.quartz.group}")
+    private String quartzGroup;
 
     private ExecutorService executorService;
 

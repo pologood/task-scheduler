@@ -30,6 +30,7 @@ public class TaskService {
 
     @Autowired
     private SchedulerFactoryBean schedulerFactoryBean;
+
     @Autowired
     private TaskRepository taskRepository;
 
@@ -103,13 +104,13 @@ public class TaskService {
      */
     public void delQuartz(Integer id){
         try{
-            Task task = taskRepository.getOne(id);
-            Scheduler scheduler = schedulerFactoryBean.getScheduler();
+            Task task = taskRepository.findOne(id);
             JobKey jobKey = JobKey.jobKey(task.getJobName(),task.getTaskGroup());
+            Scheduler scheduler = schedulerFactoryBean.getScheduler();
             scheduler.deleteJob(jobKey);
             taskRepository.delete(id);
-        }catch (SchedulerException e){
-            log.error("@deleteJob - delete job error task - para:{}",id,e);
+        }catch (Exception e){
+            log.error("@deleteJob - delete job error - para:{}",id,e);
             throw new RuntimeException("create job error task");
         }
     }

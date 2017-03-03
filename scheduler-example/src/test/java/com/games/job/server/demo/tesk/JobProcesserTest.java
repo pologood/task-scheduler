@@ -3,7 +3,7 @@ package com.games.job.server.demo.tesk;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.games.job.client.service.consumer.RedisJobConsumer;
+import com.games.job.client.service.TaskManager;
 import com.games.job.common.utils.JsonUtils;
 import com.games.job.server.demo.ApplicationTest;
 import org.junit.Assert;
@@ -24,17 +24,16 @@ import redis.clients.jedis.ShardedJedisPool;
 public class JobProcesserTest extends ApplicationTest {
 
     @Autowired
-    @Qualifier("redisJobConsumer")
-    private RedisJobConsumer redisJobConsumer;
+    private TaskManager taskManager;
 
     @Value("${spring.quartz.group}")
-    private String group = "";
+    private String group;
 
     @Value("${spring.quartz.jobChannel}")
-    private String jobChannel = "";
+    private String jobChannel;
 
     @Value("${spring.quartz.jobStatusChannel}")
-    private String jobStatusChannel = "";
+    private String jobStatusChannel;
 
     @Autowired
     @Qualifier("quartzJedisPool")
@@ -51,7 +50,7 @@ public class JobProcesserTest extends ApplicationTest {
         taskModel.setCronExpression("xxoo");
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         shardedJedis.del(jobStatusChannel);
-        redisJobConsumer.process(taskModel);
+//        redisJobConsumer.process(taskModel);
         Set<String> stringSet = new HashSet();
             while (true) {
                 String taskJson = shardedJedis.spop(jobStatusChannel);
@@ -85,7 +84,7 @@ public class JobProcesserTest extends ApplicationTest {
         taskModel.setTaskId(23);
         ShardedJedis shardedJedis = shardedJedisPool.getResource();
         shardedJedis.del(jobStatusChannel);
-        redisJobConsumer.process(taskModel);
+//        redisJobConsumer.process(taskModel);
         Set<String> stringSet = new HashSet();
         while (true) {
             String taskJson = shardedJedis.spop(jobStatusChannel);

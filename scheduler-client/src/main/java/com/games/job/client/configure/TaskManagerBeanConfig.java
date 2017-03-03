@@ -29,14 +29,15 @@ public class TaskManagerBeanConfig {
     private ShardedJedisPool shardedJedisPool;
 
     @Bean
-    TaskManager taskManager(){
+    public TaskManager taskManager(){
         TaskManager taskManager = new TaskManager();
         taskManager.setChannel(channel());
         return taskManager;
     }
 
 
-    Channel channel(){
+    @Bean
+    public Channel channel(){
         RedisChannel redisChannel =new RedisChannel();
         redisChannel.setJobStatusChannel(jobStatusChannel);
         redisChannel.setJobChannel(jobChannel);

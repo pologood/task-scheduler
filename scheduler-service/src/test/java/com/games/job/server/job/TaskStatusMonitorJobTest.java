@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-/**
- * Created by wangshichao on 2016/11/21.
- */
 public class TaskStatusMonitorJobTest extends ApplicationTest {
 
     @Autowired
