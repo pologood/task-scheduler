@@ -4,9 +4,13 @@ import java.util.List;
 
 import com.games.job.common.enums.TaskStatus;
 import com.games.job.common.model.TaskModel;
+import com.games.job.server.async.AsyncServiceImpl;
 import com.games.job.server.entity.Task;
+import com.games.job.server.entity.TaskEmail;
+import com.games.job.server.repository.TaskEmailRepository;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.common.utils.BeanUtils;
+import com.games.job.server.sender.EmailSenderImpl;
 import com.games.job.server.service.TaskManager;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -30,6 +34,13 @@ public class TaskFeedJob implements Job {
 
     @Autowired
     private TaskManager taskManager;
+
+    @Autowired
+    private EmailSenderImpl emailSender;
+
+    @Autowired
+    private TaskEmailRepository taskEmailRepository;
+
 
     private  static  final  Long  TIME_OUT_RANGE = 1000 * 60 * 10L;
 
@@ -80,7 +91,10 @@ public class TaskFeedJob implements Job {
                 logger.info("@execute - over retry count set retryFail status - para:{}", task);
                 task.setStatus(TaskStatus.RETRYFAIL.getId());
                 taskRepository.save(task);
-                // TODO: 2017/3/4 发送失败邮件
+                List<TaskEmail> emails = this.taskEmailRepository.findByTaskId(task.getId());
+                String title=task.getTaskGroup()+"-"+task.getJobName()+"执行异常"+task.getSendTime();
+                String content=task.getFailReason();
+                emailSender.sendTaskFail(emails,title,content);
             }
         });
     }

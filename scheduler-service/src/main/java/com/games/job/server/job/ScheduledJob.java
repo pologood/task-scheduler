@@ -57,51 +57,14 @@ public class ScheduledJob implements Job {
         addLastTaskRecord(task);
         initThisTimeTask(task);
 
-        String path = task.getPath();
-        if(StringUtils.isNotBlank(path)){ //restful 触发任务
-           retry(path,taskId,null);
-        }else{
-            TaskModel taskModel = new TaskModel();
-            taskModel.setTaskId(task.getId());
-            taskModel.setTaskGroup(task.getTaskGroup());
-            taskModel.setJobName(task.getJobName());
-            taskModel.setBeanName(task.getBeanName());
-            taskModel.validNotifyTaskModel();
-            taskManager.sendTask(taskModel);
-        }
-    }
-
-    private String fireRestfulJob(String path,Integer taskId){
-        Map<String,String> params = Maps.newConcurrentMap();
-        params.put("id",taskId+"");
-        return NetUtils.sendMap(path,params,HttpMethod.GET);
-    }
-
-    private void retry(String path,Integer taskId,Task task){
-        if(task==null){
-            task = taskRepository.getOne(taskId);
-        }
-        if(task!=null){
-            if(task.getRetryCount() > task.getRetryCounted()){
-                try {
-                    String result = fireRestfulJob(path,taskId);
-                    if(StringUtils.isNotBlank(result)){
-                        Result ret = JsonUtils.fromJson(result,Result.class);
-                        if(ret.getCode()!= ResponseCode.OPT_OK.getCode()){
-                            retry(path,taskId,task);
-                        }
-                    }else{
-                        retry(path,taskId,task);
-                    }
-                }catch (Exception e){
-                    retry(path,taskId,task);
-                }
-            }else{
-                logger.info("@execute restful - over retry count set retryFail status - para:{}", task);
-                task.setStatus(TaskStatus.RETRYFAIL.getId());
-                taskRepository.save(task);
-            }
-        }
+        TaskModel taskModel = new TaskModel();
+        taskModel.setTaskId(task.getId());
+        taskModel.setTaskGroup(task.getTaskGroup());
+        taskModel.setJobName(task.getJobName());
+        taskModel.setBeanName(task.getBeanName());
+        taskModel.setPath(task.getPath());
+        taskModel.validNotifyTaskModel();
+        taskManager.sendTask(taskModel);
     }
 
     private void initThisTimeTask(Task task) {

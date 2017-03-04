@@ -12,6 +12,16 @@ server:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
+mail:
+  host: smtp.163.com
+  username: 286352250@163.com
+  password: 用户密码
+  properties:
+    mail:
+      smtp:
+        auth: true
+        timeout: 25000
+
 spring:
   jpa:
     properties:

@@ -1,9 +1,11 @@
 package com.games.job.server.controller;
 
+import com.games.job.common.enums.TaskStatus;
 import com.games.job.common.model.TaskModel;
 import com.games.job.common.utils.JsonUtils;
 import com.games.job.server.entity.restful.Result;
 import com.games.job.server.service.TaskService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +33,11 @@ public class TaskReceiveController {
     @RequestMapping("/getTask")
     public Result getTask(@QueryParam(value = "data") String data){
         TaskModel taskModel = JsonUtils.fromJson(data, TaskModel.class);
-        taskService.addOrModQuartz(taskModel);
+        if(TaskStatus.INIT.getId()==taskModel.getStatus()){
+            taskService.addOrModQuartz(taskModel);
+        }else{
+            taskService.modTasksStatus(Lists.newArrayList(taskModel));
+        }
         return new Result();
     }
 }

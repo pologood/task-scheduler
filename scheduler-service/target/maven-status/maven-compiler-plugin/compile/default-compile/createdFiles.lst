@@ -4,9 +4,12 @@ com\games\job\server\entity\TaskEmail.class
 com\games\job\server\service\channel\RestfulChannel.class
 com\games\job\server\configure\TaskManagerBeanConfig.class
 com\games\job\server\service\TaskService.class
+com\games\job\server\service\EmailService.class
 com\games\job\server\controller\MetricsController.class
 com\games\job\server\entity\restful\Result.class
+com\games\job\server\sender\EmailSenderImpl.class
 com\games\job\server\controller\TaskController.class
+com\games\job\server\async\AsyncServiceImpl.class
 com\games\job\server\controller\AdminController.class
 com\games\job\server\service\channel\MqChannel.class
 com\games\job\server\job\MqConsumerJob.class
@@ -26,7 +29,10 @@ com\games\job\server\repository\TaskEmailRepository.class
 com\games\job\server\repository\TaskRepository.class
 com\games\job\server\service\channel\RedisChannel.class
 com\games\job\server\service\channel\Channel.class
+com\games\job\server\async\AsyncService.class
 com\games\job\server\entity\VO\TaskVO.class
+com\games\job\server\sender\EmailSender.class
+com\games\job\server\configure\EmailConfig.class
 com\games\job\server\job\TaskMonitorJob.class
 com\games\job\server\job\TaskStatusMonitorJob.class
 com\games\job\server\configure\JobFactory.class
