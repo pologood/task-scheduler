@@ -26,6 +26,8 @@ public class TaskModel{
     private Integer retryCount;
     private Long  dealTime;
     private String path;
+    private String failReason;
+    private Boolean fail=false;
 
     public TaskModel clone() {
         return this;

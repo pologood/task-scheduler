@@ -27,5 +27,7 @@ public class Task extends BaseModel{
     private Date  sendTime;
     private String beanName;
     private String path;//restful调用地址
+    private String failReason;
+    private Boolean fail=false;
 }
 

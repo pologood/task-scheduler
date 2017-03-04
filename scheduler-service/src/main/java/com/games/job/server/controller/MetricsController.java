@@ -15,4 +15,5 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(maxAge = 3600L)
 @RequestMapping("/metrics")
 public class MetricsController {
+
 }

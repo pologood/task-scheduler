@@ -23,7 +23,11 @@ public class TaskReceiveController {
     @Autowired
     private TaskService taskService;
 
-
+    /**
+     * 接收task instance从http通道上报的任务
+     * @param data
+     * @return
+     */
     @RequestMapping("/getTask")
     public Result getTask(@QueryParam(value = "data") String data){
         TaskModel taskModel = JsonUtils.fromJson(data, TaskModel.class);

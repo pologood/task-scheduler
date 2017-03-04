@@ -22,4 +22,6 @@ public class TaskRecord extends BaseModel{
     private Date  endTime;
     private Integer taskId;
     private Integer status;
+    private String failReason;
+    private Boolean fail=false;
 }

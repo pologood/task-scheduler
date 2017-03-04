@@ -80,6 +80,7 @@ public class TaskFeedJob implements Job {
                 logger.info("@execute - over retry count set retryFail status - para:{}", task);
                 task.setStatus(TaskStatus.RETRYFAIL.getId());
                 taskRepository.save(task);
+                // TODO: 2017/3/4 发送失败邮件
             }
         });
     }

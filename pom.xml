@@ -15,6 +15,7 @@
         <module>scheduler-common</module>
         <module>scheduler-service</module>
         <module>scheduler-benchmark</module>
+        <module>scheduler-auth</module>
     </modules>
 
     <developers>

@@ -2,9 +2,15 @@ package com.games.job.client.service;
 
 import com.games.job.client.job.Job;
 import com.games.job.common.model.TaskModel;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * @author:liujh
@@ -49,6 +55,10 @@ public class JobHandler implements Runnable{
             taskManager.sendEndStatus(taskModel);
         } catch (Exception e) {
             log.error("@process - job  invoke fail - para:{}", taskModel,e);
+//            StringWriter sw = new StringWriter();
+//            e.printStackTrace(new PrintWriter(sw));
+//            String trace = sw.toString();
+            taskModel.setFailReason(ExceptionUtils.getStackTrace(e));
             taskManager.sendFailStatus(taskModel);
         }
     }

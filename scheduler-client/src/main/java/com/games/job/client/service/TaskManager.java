@@ -34,14 +34,16 @@ public class TaskManager {
         TaskModel beginTaskModel = taskModel.clone();
         beginTaskModel.setStatus(TaskStatus.BEGIN.getId());
         beginTaskModel.setBeginTime(new Date());
+        beginTaskModel.setFail(false);
         beginTaskModel.initDealTime();
         channel.putTaskStatus(beginTaskModel);
     }
 
     public void sendEndStatus(TaskModel taskModel) {
         TaskModel endTaskModel = taskModel.clone();
-        endTaskModel.setEndTime(new Date());
         endTaskModel.setStatus(TaskStatus.END.getId());
+        endTaskModel.setEndTime(new Date());
+        endTaskModel.setFail(false);
         endTaskModel.initDealTime();
         channel.putTaskStatus(endTaskModel);
     }
@@ -50,6 +52,7 @@ public class TaskManager {
         TaskModel failTaskModel = taskModel.clone();
         failTaskModel.setStatus(TaskStatus.FAIL.getId());
         failTaskModel.setEndTime(new Date());
+        failTaskModel.setFail(true);
         failTaskModel.initDealTime();
         channel.putTaskStatus(failTaskModel);
     }
