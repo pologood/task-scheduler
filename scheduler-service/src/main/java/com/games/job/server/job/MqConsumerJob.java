@@ -18,7 +18,7 @@ import java.util.Optional;
  * @full_name:com.games.job.server.job.MaListener
  * @ide:IntelliJ IDEA
  */
-public class MqMonitorJob extends MqListener {
+public class MqConsumerJob extends MqListener {
     @Autowired
     private TaskService taskService;
 

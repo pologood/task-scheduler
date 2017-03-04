@@ -39,7 +39,7 @@ public class TaskManagerConfig {
 
 
     @Bean
-    public Channel channel(){
+    public RedisChannel channel(){
         RedisChannel redisChannel =new RedisChannel();
         redisChannel.setJobStatusChannel(jobStatusChannel);
         redisChannel.setJobChannel(jobChannel);

@@ -6,6 +6,10 @@ logging:
     org:
       springframework: info
 
+# 本机暴露服务地址
+server:
+  port: 7777
+  servlet-path:
 
 spring:
   profiles:
@@ -15,10 +19,24 @@ spring:
   profiles: local
   quartz:
     group: demo
+    threadCount: 5
+    server: localhost:8080/client/getTask  #restful上报task接口
+  redis:
+    address: 127.0.0.1:6379
+    password:
+    timeout: 10000
+    jobChannel: quartz_job_channel
+    jobStatusChannel: quartz_job_status_channel
+    pool:
+      maxTotal: 10
+      maxIdle: 4
+  kafka:
+    address: 127.0.0.1:2181
+    jobTopic: quartz_job_topic
+    jobStatusTopic: quartz_job_status_topic
 ---
 spring:
   profiles: develop
 ---
 spring:
   profiles: test
-

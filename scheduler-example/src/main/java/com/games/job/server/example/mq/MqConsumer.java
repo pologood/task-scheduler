@@ -21,7 +21,7 @@ import com.games.job.common.model.TaskModel;
  * @full_name:com.games.job.client.service.MqMonitor
  * @ide:IntelliJ IDEA
  */
-public class MqMonitor extends MqListener {
+public class MqConsumer extends MqListener {
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -32,7 +32,7 @@ public class MqMonitor extends MqListener {
 
     private ExecutorService executorService;
 
-    public MqMonitor(){
+    public MqConsumer(){
         executorService = Executors.newFixedThreadPool(threadCount);
     }
 
