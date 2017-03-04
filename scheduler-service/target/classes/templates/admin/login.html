@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
     <title>任务调度中心</title>
-    <link rel="stylesheet" href="./layui/css/layui.css"/>
-    <link rel="stylesheet" href="./css/global.css"/>
-    <script type="text/javascript" src="./layui/layui.js"/>
+    <link rel="stylesheet" th:href="@{layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{css/global.css}"/>
+    <script type="text/javascript" th:src="@{layui/layui.js}"/>
 </head>
 <body>
 <style type="text/css">html{background: #f3f3f3;}</style>
 <div class="login_page">
-    <img class="logo-login" src="./images/logo-login.png" alt="logo"/>
+    <img class="logo-login" th:src="@{images/logo-login.png}" alt="logo"/>
     <h1>欢迎使用 Lz</h1>
     <form class="layui-form">
         <div class="layui-form-item">
@@ -26,42 +27,18 @@
         <div class="layui-form-item">
             <div class="layui-input-inline input-custom-width">
                 <input type="text" name="captcha" lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
-                <div class="captcha"><img src="{:captcha_src()}" alt="captche" title='点击切换' onclick="this.src='/captcha?id='+Math.random()"></div>
+                <div class="captcha"></div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-inline input-custom-width">
-              <button class="layui-btn input-custom-width" lay-submit="" lay-filter="login">立即登陆</button>
+              <button class="layui-btn input-custom-width" lay-submit="" lay-filter="login" th:href="/admin/index">登 录</button>
             </div>
         </div>
     </form>
 </div>
 <script type="text/javascript">
-layui.use('form',function(){
-    var form = layui.form()
-    ,jq = layui.jquery;
 
-    //监听提交
-      form.on('submit(login)', function(data){
-        loading = layer.load(2, {
-          shade: [0.2,'#000'] //0.2透明度的白色背景
-        });
-        var param = data.field;
-        jq.post('',param,function(data){
-          if(data.code == 200){
-            layer.close(loading);
-            layer.msg(data.msg, {icon: 1, time: 1000}, function(){
-              location.href = '';
-            });
-          }else{
-            layer.close(loading);
-            layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
-            jq('.captcha img').attr('src','/captcha?id='+Math.random());
-          }
-        });
-        return false;
-      });
-});
 </script>
 </body>
 </html>
