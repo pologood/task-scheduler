@@ -4,7 +4,6 @@ com\games\job\client\service\channel\RestfulChannel.class
 com\games\job\client\service\TaskManager.class
 com\games\job\client\aop\QuartzRestfulHandler.class
 com\games\job\client\service\JobExecutor.class
-com\games\job\client\configure\TaskManagerBeanConfig.class
 com\games\job\client\service\JobHandler.class
 com\games\job\client\annotation\Quartz.class
 com\games\job\client\service\TaskListener.class
@@ -12,4 +11,5 @@ com\games\job\client\service\channel\RedisChannel.class
 com\games\job\client\annotation\QuartzRestful.class
 com\games\job\client\job\Job.class
 com\games\job\client\service\TaskAgent.class
+com\config\TaskManagerBeanConfig.class
 com\games\job\client\service\channel\MqChannel.class

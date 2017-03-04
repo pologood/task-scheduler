@@ -4,7 +4,7 @@ E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\ser
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\service\TaskListener.java
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\aop\QuartzRestfulHandler.java
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\service\channel\MqChannel.java
-E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\configure\TaskManagerBeanConfig.java
+E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\config\TaskManagerBeanConfig.java
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\service\JobHandler.java
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\annotation\QuartzRestful.java
 E:\vert.x\task-scheduler\scheduler-client\src\main\java\com\games\job\client\service\TaskManager.java

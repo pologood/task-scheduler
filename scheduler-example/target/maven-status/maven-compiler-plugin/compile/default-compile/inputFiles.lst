@@ -1,2 +1,4 @@
-E:\vert.x\scheduler-example\src\main\java\com\games\Example.java
-E:\vert.x\scheduler-example\src\main\java\com\games\job\server\example\ScheduleExample.java
+E:\vert.x\task-scheduler\scheduler-example\src\main\java\com\games\job\server\example\task\MyTask.java
+E:\vert.x\task-scheduler\scheduler-example\src\main\java\com\games\job\server\example\config\TaskManagerConfig.java
+E:\vert.x\task-scheduler\scheduler-example\src\main\java\com\games\Application.java
+E:\vert.x\task-scheduler\scheduler-example\src\main\java\com\games\job\server\example\mq\MqConsumer.java

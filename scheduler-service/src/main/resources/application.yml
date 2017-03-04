@@ -7,7 +7,7 @@ logging:
       springframework: info
 
 server:
-  port: 8080
+  port: 6666
   servlet-path: /
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

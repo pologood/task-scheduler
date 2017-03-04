@@ -14,10 +14,13 @@ E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\en
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\service\TaskManager.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\service\TaskService.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\App.java
+E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\controller\EmailController.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\controller\TaskController.java
+E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\repository\TaskEmailRepository.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\entity\restful\Result.java
-E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\job\MqMonitorJob.java
+E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\entity\TaskEmail.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\entity\TaskRecord.java
+E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\job\MqConsumerJob.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\service\channel\MqChannel.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\job\ScheduledJob.java
 E:\vert.x\task-scheduler\scheduler-service\src\main\java\com\games\job\server\repository\TaskRepository.java

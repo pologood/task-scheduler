@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+    <title>Lz_CMS-后台管理中心</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="./css/global.css">
+    <script type="text/javascript" src="./layui/layui.js"></script>
+</head>
+<body>
+<div class="layui-tab layui-tab-brief main-tab-container">
+    <ul class="layui-tab-title main-tab-title">
+      <a href="category_list.html"><li class="layui-this">栏目列表</li></a>
+      <a href="category_add.html"><li>添加栏目</li></a>
+      <div class="main-tab-item">栏目管理</div>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+      <form class="layui-form">
+
+            <table class="list-table">
+              <thead>
+                <tr>
+                  <th style="width:40px">排序</th>
+                  <th>ID</th>
+                  <th>栏目名称</th>
+                  <th>所属模型</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input name="sorts[1]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>1</td>
+                  <td>
+                    学无止境
+                  </td>
+                  <td>文章模型</td>
+                  <td style="text-align: center;">
+                    <a href="./category_add.html" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="1" title="删除" category-name="学无止境"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[8]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>8</td>
+                  <td>
+                    ├─杂谈
+                  </td>
+                  <td>文章模型</td>
+                  <td style="text-align: center;">
+                    <a href="./category_add.html" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="8" title="删除" category-name="杂谈"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[9]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>9</td>
+                  <td>
+                    ├─PHP
+                  </td>
+                  <td>文章模型</td>
+                  <td style="text-align: center;">
+                    <a href="./category_add.html" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="9" title="删除" category-name="PHP"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[10]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>10</td>
+                  <td>
+                    ├─建站
+                  </td>
+                  <td>文章模型</td>
+                  <td style="text-align: center;">
+                    <a href="./category_add.html" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="10" title="删除" category-name="建站"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[11]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>11</td>
+                  <td>
+                    ├─WEB前端
+                  </td>
+                  <td>文章模型</td>
+                  <td style="text-align: center;">
+                    <a href="./category_add.html" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="11" title="删除" category-name="WEB前端"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[2]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>2</td>
+                  <td>
+                    分享无价
+                  </td>
+                  <td>下载模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="2" title="删除" category-name="分享无价"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[13]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>13</td>
+                  <td>
+                    ├─源码分享
+                  </td>
+                  <td>下载模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="13" title="删除" category-name="源码分享"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[14]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>14</td>
+                  <td>
+                    ├─jQuery特效
+                  </td>
+                  <td>下载模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="14" title="删除" category-name="jQuery特效"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[3]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>3</td>
+                  <td>
+                    日记
+                  </td>
+                  <td>链接模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="3" title="删除" category-name="日记"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[4]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>4</td>
+                  <td>
+                    关于
+                  </td>
+                  <td>单页模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="4" title="删除" category-name="关于"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[5]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>5</td>
+                  <td>
+                    ├─关于老张
+                  </td>
+                  <td>单页模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="5" title="删除" category-name="关于老张"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[6]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>6</td>
+                  <td>
+                    ├─关于LzCMS
+                  </td>
+                  <td>单页模型</td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="6" title="删除" category-name="关于LzCMS"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><input name="sorts[7]" type="text" value="20" lay-verify="number" class="layui-input"></td>
+                  <td>7</td>
+                  <td>
+                    ├─留言 <a href="" target="_blank" class="link"><i class="layui-icon"></i></a>
+                  </td>
+                  <td><span style="color:red">外部链接</span></td>
+                  <td style="text-align: center;">
+                    <a href="" class="layui-btn layui-btn-small" title="编辑"><i class="layui-icon"></i></a>
+                    <a class="layui-btn layui-btn-small layui-btn-danger del_btn" category-id="7" title="删除" category-name="留言"><i class="layui-icon"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th colspan="5"><button class="layui-btn layui-btn-small" lay-submit="" lay-filter="sort">排序</button></th>
+                </tr>
+              </thead>
+            </table>
+
+      </form>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+layui.use(['element', 'layer', 'form'], function(){
+  var element = layui.element()
+  ,jq = layui.jquery
+  ,form = layui.form()
+  ,laypage = layui.laypage;
+
+  //图片预览
+  jq('.list-table td .thumb').hover(function(){
+    jq(this).append('<img class="thumb-show" src="'+jq(this).attr('thumb')+'" >');
+  },function(){
+    jq(this).find('img').remove();
+  });
+  //链接预览
+  jq('.list-table td .link').hover(function(){
+    var link = jq(this).attr('href');
+    layer.tips( link, this, {
+    tips: [2, '#009688'],
+    time: false
+  });
+  },function(){
+    layer.closeAll('tips');
+  });
+
+  //监听提交
+  form.on('submit(sort)', function(data){
+    loading = layer.load(2, {
+      shade: [0.2,'#000'] //0.2透明度的白色背景
+    });
+    var param = data.field;
+    jq.post('',param,function(data){
+      if(data.code == 200){
+        layer.close(loading);
+        layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+          location.reload();//do something
+        });
+      }else{
+        layer.close(loading);
+        layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+      }
+    });
+    return false;
+  });
+
+  //ajax删除
+  jq('.del_btn').click(function(){
+    var name = jq(this).attr('category-name');
+    var id = jq(this).attr('category-id');
+    layer.confirm('确定删除【'+name+'】?', function(index){
+      loading = layer.load(2, {
+        shade: [0.2,'#000'] //0.2透明度的白色背景
+      });
+      jq.post('',{'id':id},function(data){
+        if(data.code == 200){
+          layer.close(loading);
+          layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+            location.reload();//do something
+          });
+        }else{
+          layer.close(loading);
+          layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+        }
+      });
+    });
+    
+  });
+  
+})
+</script>
+</body>
+</html>

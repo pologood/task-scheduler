@@ -1,9 +1,9 @@
 package com.games.job.server.controller;
 
-import com.games.job.server.entity.restful.Result;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author:liujh
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
  * @full_name:com.games.job.server.controller.MainController
  * @ide:IntelliJ IDEA
  */
-@RestController
+@Controller
 @CrossOrigin(maxAge = 3600L)
 @RequestMapping("/admin")
 public class AdminController {
 
     @RequestMapping(value = "/login")
-    public Result login(){
+    public String login(Model model){
         // TODO: 2017/3/4 权限校验
-        return new Result();
+        return "/admin/login";
     }
 
     @RequestMapping(value = "/index")
-    public Result index(){
+    public String index(Model model){
         // TODO: 2017/3/4 菜单数据，配置读取
-        return new Result();
+        return "/admin/index";
     }
 }

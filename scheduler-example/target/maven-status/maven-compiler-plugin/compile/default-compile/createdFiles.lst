@@ -1,2 +1,4 @@
-com\games\job\server\example\ScheduleExample.class
-com\games\Example.class
+com\games\job\server\example\task\MyTask.class
+com\games\Application.class
+com\games\job\server\example\mq\MqConsumer.class
+com\games\job\server\example\config\TaskManagerConfig.class
