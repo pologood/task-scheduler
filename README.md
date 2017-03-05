@@ -1,5 +1,6 @@
 ## Introduction
-基于SpringBoot+Quartz的分布式任务调度系统，支持多种消息通道(channel)自由灵活配置。
+基于SpringBoot+Quartz的分布式任务调度系统，支持多种消息通道(channel)自由灵活配置，架构设计图：
+
 ## Features
 1. 调度中心使用分布式quartz，支持集群模式，保证HA和负载均衡，有效避免单点。
 2. redis、mq channel支持集群模式，避免单点。
@@ -13,6 +14,7 @@
 10. task实例使用线程池技术执行任务，提升性能。
 
 ## Quick Start
+
 1. 项目使用maven构建，下载后编译：
 ```java
 mvn clean install -Dmaven.test.skip=true
@@ -60,7 +62,8 @@ mvn clean install -Dmaven.test.skip=true
 
 ## FAQ
 由于目前task实例和调度中心是通过channel异步通信的，那么task实例上报任务是否成功也就无法知晓了。
-解决：增加调度中心的确认机制，一旦调度中心收到task实例上报的任务，就要给出确认反馈，
+
+解决方案：增加调度中心的确认机制，一旦调度中心收到task实例上报的任务，就要给出确认反馈，
 如果task实例在指定时间内没有收到确认反馈，就在上报任务，同时调度中心也要对相同的任务去重，以免重复上报。
 
 ## License
