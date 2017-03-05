@@ -3,11 +3,8 @@
 */
 package com.games.job.server;
 
-import org.jdto.DTOBinder;
-import org.jdto.spring.SpringDTOBinder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 /**
  * Created with Intellij IDEA
@@ -21,8 +18,4 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
-    @Bean
-    public DTOBinder dtoBinder() {
-        return new SpringDTOBinder();
-    }
 }

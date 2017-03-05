@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 abstract public class JsonUtils {
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
     public static final String EMPTY_JSON_OBJECT = "{}";
@@ -23,6 +20,9 @@ abstract public class JsonUtils {
     private static final JavaType javaTypeMapStringObject;
     private static final JavaType javaTypeMapStringMap;
     private static final JavaType javaTypeMapStringString;
+
+    private JsonUtils() {
+    }
 
     static {
         javaTypeMapStringObject = constructParametricType(Map.class, String.class, Object.class);
