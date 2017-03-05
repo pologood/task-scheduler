@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/email")
 public class EmailController {
 
+
     @RequestMapping("/list")
     public Result list(){
         return new Result();
@@ -26,8 +27,9 @@ public class EmailController {
     public Result add(){
         return new Result();
     }
-    @RequestMapping("/del")
-    public Result del(){
+    @RequestMapping("/del/{emailId}")
+    public Result del(@PathParam(value = "emailId") Integer emailId){
+
         return new Result();
     }
     @RequestMapping("/mod")

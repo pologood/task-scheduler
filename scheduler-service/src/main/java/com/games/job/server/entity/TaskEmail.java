@@ -17,5 +17,9 @@ public class TaskEmail extends BaseModel{
     private String taskGroup;
     private String jobName;
     private Integer taskId;
+    private String name;
+    private String deptName;
     private String emailAddress;
+    private String phone;
+    private Boolean valid;
 }
