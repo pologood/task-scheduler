@@ -13,8 +13,6 @@ import com.games.job.server.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 @CrossOrigin(maxAge = 3600L)
 @RequestMapping("/task")
@@ -44,19 +42,19 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/del/{taskId}",method = RequestMethod.GET)
-    public Result delTask(@PathParam(value = "taskId") Integer taskId) {
+    public Result delTask(@PathVariable(value = "taskId") Integer taskId) {
         taskService.delQuartz(taskId);
         return new Result();
     }
 
     @RequestMapping(value = "/mod/{taskId}",method = RequestMethod.GET)
-    public Result modJob(@PathParam(value = "taskId") Integer taskId){
+    public Result modJob(@PathVariable(value = "taskId") Integer taskId){
         // TODO: 2017/3/4  1.cron表达式正确性校验；2.group+jobName唯一性校验；3.restful正确性校验；
         return new Result();
     }
 
     @RequestMapping(value = "/get/{taskId}",method = RequestMethod.GET)
-    public Result<TaskVO> getTask(@PathParam(value = "taskId") Integer taskId){
+    public Result<TaskVO> getTask(@PathVariable(value = "taskId") Integer taskId){
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(taskId);
         List<TaskEmail> taskEmails = taskEmailRepository.findByTaskId(taskId);
         Task task = taskService.getTask(taskId);

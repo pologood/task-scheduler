@@ -2,11 +2,9 @@ package com.games.job.server.controller;
 
 import com.games.job.server.entity.restful.Result;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.websocket.server.PathParam;
-
 /**
  * @author:liujh
  * @create_time:2017/3/4 11:19
@@ -30,7 +28,7 @@ public class EmailController {
         return new Result();
     }
     @RequestMapping("/del/{emailId}")
-    public Result del(@PathParam(value = "emailId") Integer emailId){
+    public Result del(@PathVariable(value = "emailId") Integer emailId){
 
         return new Result();
     }

@@ -2,15 +2,10 @@ package com.games.job.client.service;
 
 import com.games.job.client.job.Job;
 import com.games.job.common.model.TaskModel;
-import org.apache.commons.compress.utils.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-
-import java.io.PrintWriter;
-import java.io.StringWriter;
 
 /**
  * @author:liujh
