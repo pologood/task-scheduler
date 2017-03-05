@@ -1,5 +1,6 @@
 ## Introduction
 基于SpringBoot+Quartz的分布式任务调度系统，支持多种消息通道(channel)自由灵活配置，架构设计图：
+![](https://github.com/gitHubLjh/task-scheduler/blob/master/scheduler-service/doc/architecture_map.png)
 
 ## Features
 1. 调度中心使用分布式quartz，支持集群模式，保证HA和负载均衡，有效避免单点。
