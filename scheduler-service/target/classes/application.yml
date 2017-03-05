@@ -12,28 +12,16 @@ server:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 
-mail:
-  host: smtp.163.com
-  username: 286352250@163.com
-  password: 用户密码
-  properties:
-    mail:
-      smtp:
-        auth: true
-        timeout: 25000
-
 spring:
+  profiles: local
+  quartz:
+    group:
+  thymeleaf:
+    cache: false
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-  profiles:
-    active: local
----
-spring:
-  profiles: local
-  quartz:
-    group: demo
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qrtz?useUnicode=true&characterEncoding=utf8
     username: root
@@ -51,10 +39,22 @@ spring:
     address: 127.0.0.1:2181
     jobTopic: quartz_job_topic
     jobStatusTopic: quartz_job_status_topic
+  mail:
+    host: smtp.163.com
+    username: 286352250@163.com
+    password: 用户密码
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
 ---
 spring:
   profiles: develop
 ---
 spring:
   profiles: test
-
+---
+spring:
+  profiles:
+    active: local

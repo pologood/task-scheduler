@@ -11,9 +11,11 @@ import com.games.job.server.repository.TaskEmailRepository;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @CrossOrigin(maxAge = 3600L)
 @RequestMapping("/task")
 public class TaskController {
@@ -27,12 +29,12 @@ public class TaskController {
     private TaskEmailRepository taskEmailRepository;
 
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public Result<List<Task>>  getTasks() {
+    @RequestMapping(value = "/list")
+    public String  getTasks(Model model) {
         // TODO: 2017/3/4 分页、查询
-        Result<List<Task>> result = new Result<>();
-        result.setData(taskService.getTasks());
-        return result;
+        List<Task> list =  taskService.getTasks();
+        model.addAllAttributes(list);
+        return "/task/list";
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET)
