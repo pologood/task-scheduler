@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author:liujh
@@ -17,15 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @RequestMapping(value = "/login")
-    public String login(Model model){
-        // TODO: 2017/3/4 权限校验
-        return "/admin/login";
+    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    public void login(Model model){
+        // TODO: 2017/3/4 登录权限校验
     }
 
-    @RequestMapping(value = "/index")
-    public String index(Model model){
-        // TODO: 2017/3/4 菜单数据，配置读取
-        return "/admin/index";
+    @RequestMapping(value = "/index",method = RequestMethod.GET)
+    public void index(Model model){
+        // TODO: 2017/3/4 菜单配置读取，菜单操作权限校验
+    }
+
+    @RequestMapping(value = "/home",method = RequestMethod.GET)
+    public void home(Model model){
+
     }
 }

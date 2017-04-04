@@ -23,7 +23,7 @@ public class TaskFeedJobTest extends ApplicationTest {
     @Test
     public  void   test_taskTimeOut() throws JobExecutionException {
         Task oldTask = new Task();
-        oldTask.setTaskGroup("my-server8");
+        oldTask.setJobGroup("my-server8");
         oldTask.setJobName("sendAndTimeOutTask");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
@@ -31,7 +31,7 @@ public class TaskFeedJobTest extends ApplicationTest {
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(TaskStatus.SEND.getId());
-        Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
@@ -48,14 +48,14 @@ public class TaskFeedJobTest extends ApplicationTest {
 
         Task oldTask = new Task();
         oldTask.setJobName("dealNoFeedBackStatusTaskTest");
-        oldTask.setTaskGroup("MY-server");
+        oldTask.setJobGroup("MY-server");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setSendTime(DateUtils.addMinutes(new Date(),-10));
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(5);
         oldTask.setStatus(TaskStatus.NOFEEDBACK.getId());
-        Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }

@@ -1,4 +1,4 @@
-package com.games.job.server.controller;
+package com.games.job.server.controller.metrics;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

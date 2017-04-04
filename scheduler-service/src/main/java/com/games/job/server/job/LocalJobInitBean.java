@@ -28,37 +28,37 @@ public class LocalJobInitBean implements InitializingBean {
 
     private void  initTaskMachineStatusChannelListenerJob() throws SchedulerException {
         String jobName = "taskMachineStatusChannelListener";
-        String taskGroup = "Quartz";
+        String jobGroup = "Quartz";
         String triggerName = "taskStatusChannelListenerTrigger";
         String cronExpression = "0 0/1 * * * ?";
-        initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskStatusMonitorJob.class);//ok
+        initScheduler(jobName, jobGroup, triggerName, cronExpression, TaskStatusMonitorJob.class);//ok
     }
 
     private void  initTaskChannelListenerJob() throws SchedulerException {
         String jobName = "taskChannelListener";
-        String taskGroup = "Quartz";
+        String jobGroup = "Quartz";
         String triggerName = "taskChannelListenerTrigger";
         String cronExpression = "0 0/1 * * * ?";
-        initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskMonitorJob.class);//ok
+        initScheduler(jobName, jobGroup, triggerName, cronExpression, TaskMonitorJob.class);//ok
     }
 
 
 
     private void initStatusMonitorJob() throws SchedulerException {
         String jobName = "monitorTaskStatus";
-        String taskGroup = "Quartz";
+        String jobGroup = "Quartz";
         String triggerName = "taskStatusMonitorTrigger";
         String cronExpression = "0 0/5 * * * ?";
-        initScheduler(jobName, taskGroup, triggerName, cronExpression, TaskFeedJob.class);//ok
+        initScheduler(jobName, jobGroup, triggerName, cronExpression, TaskFeedJob.class);//ok
     }
 
-    private void initScheduler(String jobName, String taskGroup, String triggerName, String cronExpression,Class jobClass) throws SchedulerException {
+    private void initScheduler(String jobName, String jobGroup, String triggerName, String cronExpression,Class jobClass) throws SchedulerException {
         Scheduler scheduler = schedulerFactoryBean.getScheduler();
         JobDetail jobDetail = newJob(jobClass)
-                .withIdentity(jobName, taskGroup)
+                .withIdentity(jobName, jobGroup)
                 .build();
         CronTrigger trigger = newTrigger()
-                .withIdentity(triggerName, taskGroup)
+                .withIdentity(triggerName, jobGroup)
                 .startNow()
                 .withSchedule(cronSchedule(cronExpression))
                 .build();

@@ -1,4 +1,4 @@
-package com.games.job.server.controller;
+package com.games.job.server.controller.monitory;
 
 /**
  * @author:liujh

@@ -62,7 +62,7 @@ public class TaskAgent implements InitializingBean {
             }
             Quartz quartz = object.getClass().getDeclaredAnnotation(Quartz.class);
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(quartzGroup);
+            taskModel.setJobGroup(quartzGroup);
             String jobName =quartz.jobName();
             if(StringUtils.isEmpty(jobName)){
                 jobName=entry.getKey();
@@ -80,7 +80,7 @@ public class TaskAgent implements InitializingBean {
             Object object = entry.getValue();
             QuartzRestful quartzRestful = object.getClass().getDeclaredAnnotation(QuartzRestful.class);
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(quartzGroup);
+            taskModel.setJobGroup(quartzGroup);
             String jobName =quartzRestful.jobName();
             if(StringUtils.isEmpty(jobName)){
                 jobName=entry.getKey();

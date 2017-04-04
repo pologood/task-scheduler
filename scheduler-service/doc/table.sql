@@ -211,7 +211,7 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `qrtz_task`;
 CREATE TABLE `qrtz_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属项目',
+  `job_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属组',
   `bean_name` varchar(100) NOT NULL DEFAULT '' COMMENT 'task 实例定时任务bean名称',
   `job_name` varchar(100) NOT NULL DEFAULT '' COMMENT '任务名称',
   `cron_expression` varchar(100) NOT NULL DEFAULT '' COMMENT '任务cron表达式',
@@ -225,13 +225,15 @@ CREATE TABLE `qrtz_task` (
   `path`  VARCHAR(32) DEFAULT null COMMENT 'restful服务uri',
   `fail` TINYINT(1) DEFAULT 0 COMMENT '服务是否执行成功 0失败 1成功',
   `fail_reason` TEXT DEFAULT NULL COMMENT '服务失败描述',
+  `valid` TINYINT(1) DEFAULT 1 COMMENT '是否有效',
+  `memo` varchar(256) COMMENT '任务说明',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'task任务表';
 
 DROP TABLE IF EXISTS `qrtz_task_record`;
 CREATE TABLE `qrtz_task_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属项目',
+  `job_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属组',
   `job_name` varchar(100) NOT NULL DEFAULT '' COMMENT '任务名称',
   `task_id` int(11) NOT NULL DEFAULT 0 COMMENT  'task表主键',
   `status` TINYINT NOT NULL DEFAULT 0 COMMENT '任务执行状态',
@@ -246,7 +248,7 @@ CREATE TABLE `qrtz_task_record` (
 DROP TABLE IF EXISTS `qrtz_task_alarm`;
 CREATE TABLE `qrtz_task_alarm` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `task_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属项目',
+  `job_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属组',
   `job_name` varchar(100) NOT NULL DEFAULT '' COMMENT '任务名称',
   `task_id` int(11) NOT NULL DEFAULT 0 COMMENT  'task表主键',
   `name` VARCHAR(8) DEFAULT NULL COMMENT '接收报警人姓名',

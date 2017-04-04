@@ -65,7 +65,7 @@ public class TestManagerRedisTest {
         List<TaskModel> taskModels = Lists.newArrayList();
         for(int i=0;i<2;i++){
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup("demo");
+            taskModel.setJobGroup("demo");
             taskModel.setJobName("testJob"+i);
             taskModel.setBeanName("bean"+i);
             taskModel.setCronExpression("0 0/1 * * * ?");
@@ -86,7 +86,7 @@ public class TestManagerRedisTest {
         for(int i=0;i<2;i++){
             TaskModel taskModel = new TaskModel();
             taskModel.setTaskId(i);
-            taskModel.setTaskGroup("demo");
+            taskModel.setJobGroup("demo");
             taskModel.setJobName("testJob"+i);
             taskModel.setBeanName("bean"+i);
             taskModel.setCronExpression("0 0/1 * * * ?");
@@ -105,7 +105,7 @@ public class TestManagerRedisTest {
         List<TaskModel> taskModels = Lists.newArrayList();
         for(int i=0;i<2;i++){
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(jobChannel);
+            taskModel.setJobGroup(jobChannel);
             taskModel.setJobName("testJob"+i);
             taskModel.setBeanName("bean"+i);
             taskModel.setCronExpression("0 0/1 * * * ?");

@@ -22,9 +22,6 @@ import com.games.job.server.entity.Task;
 import com.games.job.server.repository.TaskRepository;
 import com.games.job.server.job.ScheduledJob;
 
-/**
- * Created by wangshichao on 2016/11/15.
- */
 @Service
 public class TaskService {
 
@@ -51,7 +48,7 @@ public class TaskService {
         }
     }
     private void  addOrModTask(TaskModel taskModel){
-        Task task =  taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+        Task task =  taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
         if(task==null){
             task = new Task();
         }
@@ -67,11 +64,11 @@ public class TaskService {
     private void addOrModJob(TaskModel taskModel) throws SchedulerException {
         Scheduler scheduler = schedulerFactoryBean.getScheduler();
         JobDetail jobDetail = newJob(ScheduledJob.class)
-                .withIdentity(taskModel.getJobName(), taskModel.getTaskGroup())
+                .withIdentity(taskModel.getJobName(), taskModel.getJobGroup())
                 .usingJobData("taskId",taskModel.getTaskId()+"")
                 .build();
         CronTrigger trigger = newTrigger()
-                .withIdentity(taskModel.getJobName(), taskModel.getTaskGroup())
+                .withIdentity(taskModel.getJobName(), taskModel.getJobGroup())
                 .startNow()
                 .withSchedule(cronSchedule(taskModel.getCronExpression()))
                 .build();
@@ -86,12 +83,12 @@ public class TaskService {
     private void modJob(TaskModel taskModel) throws SchedulerException {
         Scheduler scheduler = schedulerFactoryBean.getScheduler();
         TriggerKey triggerKey = TriggerKey.triggerKey(
-                taskModel.getJobName(), taskModel.getTaskGroup()
+                taskModel.getJobName(), taskModel.getJobGroup()
         );//从Task中得到triggerKey
         CronTrigger trigger = (CronTrigger) scheduler
                 .getTrigger(triggerKey);//从Scheduler中获取该trigger,通过triggerKey
         trigger = trigger.getTriggerBuilder()
-                .withIdentity(taskModel.getJobName(), taskModel.getTaskGroup())
+                .withIdentity(taskModel.getJobName(), taskModel.getJobGroup())
                 .startNow()
                 .withSchedule(cronSchedule(taskModel.getCronExpression()))
                 .build();
@@ -105,7 +102,7 @@ public class TaskService {
     public void delQuartz(Integer id){
         try{
             Task task = taskRepository.findOne(id);
-            JobKey jobKey = JobKey.jobKey(task.getJobName(),task.getTaskGroup());
+            JobKey jobKey = JobKey.jobKey(task.getJobName(),task.getJobGroup());
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             scheduler.deleteJob(jobKey);
             taskRepository.delete(id);

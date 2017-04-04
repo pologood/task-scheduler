@@ -38,7 +38,7 @@ public class RedisChannel implements Channel{
     public void putTask(TaskModel task) {
         // TODO: 2017/3/1 task校验 
         SetOperations<String,String> ops =  this.template.opsForSet();
-        ops.add(task.getTaskGroup(), JsonUtils.toJson(task));
+        ops.add(task.getJobGroup(), JsonUtils.toJson(task));
     }
 
     private Set<TaskModel> getTasks(String key) {

@@ -43,7 +43,7 @@ public class TaskManagerTest extends ApplicationTest{
         redisTemplate.delete(group);
         for(int i=0;i<2;i++){
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup(group);
+            taskModel.setJobGroup(group);
             taskModel.setBeginTime(new Date());
             taskModel.setTaskId(i);
             taskModel.setBeanName("bean"+i);
@@ -64,7 +64,7 @@ public class TaskManagerTest extends ApplicationTest{
             taskModel.setTaskId(i);
             taskModel.setCreateTime(new Date());
             taskModel.setCronExpression("0 0/1 * * * ?");
-            taskModel.setTaskGroup(group);
+            taskModel.setJobGroup(group);
             taskModel.setStatus(TaskStatus.INIT.getId());
             redisOptions.add(jobChannel, JsonUtils.toJson(taskModel));
         }
@@ -83,7 +83,7 @@ public class TaskManagerTest extends ApplicationTest{
             taskModel.setTaskId(i);
             taskModel.setBeginTime(new Date());
             taskModel.setCronExpression("0 0/1 * * * ?");
-            taskModel.setTaskGroup(group);
+            taskModel.setJobGroup(group);
             taskModel.setStatus(TaskStatus.BEGIN.getId());
             redisOptions.add(jobStatusChannel, JsonUtils.toJson(taskModel));
         }

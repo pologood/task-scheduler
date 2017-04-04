@@ -24,16 +24,16 @@ public class TaskServiceTest extends ApplicationTest{
     public void  task_addQuartzJob() {
         TaskModel taskModel = new TaskModel();
         taskModel.setJobName("testJob");
-        taskModel.setTaskGroup("my-server");
+        taskModel.setJobGroup("my-server");
         taskModel.setBeanName("testBeanName");
         taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(5);
-        Task task = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
         taskService.addOrModQuartz(taskModel);
-        Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+        Task insertTask = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getStatus().intValue()== TaskStatus.INIT.getId());
         Assert.assertTrue(insertTask.getRetryCount().intValue()==5);
         Assert.assertTrue(insertTask.getBeanName().equals(taskModel.getBeanName()));
@@ -43,26 +43,26 @@ public class TaskServiceTest extends ApplicationTest{
     public void  task_modQuartzJob()  throws IOException{
         Task oldTask = new Task();
         oldTask.setJobName("testJob1");
-        oldTask.setTaskGroup("myServer1");
+        oldTask.setJobGroup("myServer1");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(TaskStatus.INIT.getId());
         oldTask.setCreateTime(new Date());
-        Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
         if(task==null){
             taskRepository.save(oldTask);
         }
         TaskModel taskModel = new TaskModel();
         taskModel.setJobName("testJob1");
-        taskModel.setTaskGroup("myServer1");
+        taskModel.setJobGroup("myServer1");
         taskModel.setBeanName("testBeanName");
         taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(2);
         oldTask.setCreateTime(new Date());
         taskService.addOrModQuartz(taskModel);
-        Task insertTask = taskRepository.findByTaskGroupAndJobName(taskModel.getTaskGroup(),taskModel.getJobName());
+        Task insertTask = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getCronExpression().equals(taskModel.getCronExpression()));
         Assert.assertTrue(insertTask.getRetryCount().intValue()==taskModel.getRetryCount().intValue());
     }
@@ -71,20 +71,20 @@ public class TaskServiceTest extends ApplicationTest{
     public void  test_delQuartzJob(){
         Task oldTask = new Task();
         oldTask.setJobName("testDeleteJob");
-        oldTask.setTaskGroup("myServer");
+        oldTask.setJobGroup("myServer");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/1 * * * ?");
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(0);
-        Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
         if(task==null){
             taskRepository.save(oldTask);
         }
-        Task taskGroupAndJobName = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
-        Assert.assertNotNull(taskGroupAndJobName);
-        taskService.delQuartz(taskGroupAndJobName.getId());
-        Task byIdTask  =  taskRepository.findById(taskGroupAndJobName.getId());
+        Task jobGroupAndJobName = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Assert.assertNotNull(jobGroupAndJobName);
+        taskService.delQuartz(jobGroupAndJobName.getId());
+        Task byIdTask  =  taskRepository.findById(jobGroupAndJobName.getId());
         Assert.assertNull(byIdTask);
     }
 
@@ -93,27 +93,27 @@ public class TaskServiceTest extends ApplicationTest{
     public void  test_modTaskStatus_batch(){
         Task oldTask = new Task();
         oldTask.setJobName("testDeleteJob");
-        oldTask.setTaskGroup("myServer");
+        oldTask.setJobGroup("myServer");
         oldTask.setBeanName("testBeanName");
         oldTask.setCronExpression("0 0/5 * * * ?");
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(TaskStatus.INIT.getId());
-        Task task = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
         taskRepository.save(oldTask);
-        Task taskGroupAndJobName = taskRepository.findByTaskGroupAndJobName(oldTask.getTaskGroup(),oldTask.getJobName());
+        Task jobGroupAndJobName = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
 
         TaskModel taskModel = new TaskModel();
-        taskModel.setTaskId(taskGroupAndJobName.getId());
+        taskModel.setTaskId(jobGroupAndJobName.getId());
         taskModel.setStatus(TaskStatus.FAIL.getId());
         taskModel.setEndTime(new Date());
         List<TaskModel> list  =  new ArrayList<>();
         list.add(taskModel);
         taskService.modTasksStatus(list);
-        Task byIdTask = taskRepository.findById(taskGroupAndJobName.getId());
+        Task byIdTask = taskRepository.findById(jobGroupAndJobName.getId());
         Assert.assertTrue(byIdTask.getStatus()==TaskStatus.FAIL.getId());
     }
 

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface TaskRepository extends JpaRepository<Task,Integer> {
 
-    Task  findByTaskGroupAndJobName(String TaskGroup,String jobName);
+    Task  findByJobGroupAndJobName(String jobGroup,String jobName);
 
     List<Task>  findByStatus(Integer status);
 

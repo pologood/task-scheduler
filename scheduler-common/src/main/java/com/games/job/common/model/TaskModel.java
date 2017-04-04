@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class TaskModel{
 
-    private String taskGroup;
+    private String jobGroup;
     private String jobName;
     private String cronExpression;
     private Date beginTime;
@@ -39,8 +39,8 @@ public class TaskModel{
         if(StringUtils.isEmpty(this.getCronExpression())){
             throw new RuntimeException("cronExpression is null");
         }
-        if(StringUtils.isEmpty(this.taskGroup)){
-            throw new RuntimeException("taskGroup is null");
+        if(StringUtils.isEmpty(this.jobGroup)){
+            throw new RuntimeException("jobGroup is null");
         }
         if(this.getRetryCount()==null){
             throw new RuntimeException("retryCount is null");
@@ -78,12 +78,12 @@ public class TaskModel{
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
-    public String getTaskGroup() {
-        return taskGroup;
+    public String getJobGroup() {
+        return jobGroup;
     }
 
-    public void setTaskGroup(String taskGroup) {
-        this.taskGroup = taskGroup;
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
     }
 
     public String getJobName() {

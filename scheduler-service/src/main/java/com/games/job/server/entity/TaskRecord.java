@@ -13,7 +13,7 @@ public class TaskRecord extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
-    private String taskGroup;
+    private String jobGroup;
     private String jobName;
     private Date  createTime;
     private Date  beginTime;
@@ -31,12 +31,12 @@ public class TaskRecord extends BaseModel{
         Id = id;
     }
 
-    public String getTaskGroup() {
-        return taskGroup;
+    public String getJobGroup() {
+        return jobGroup;
     }
 
-    public void setTaskGroup(String taskGroup) {
-        this.taskGroup = taskGroup;
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
     }
 
     public String getJobName() {

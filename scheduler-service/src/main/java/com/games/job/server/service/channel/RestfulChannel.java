@@ -83,7 +83,7 @@ public class RestfulChannel implements Channel{
                 task.setStatus(TaskStatus.RETRYFAIL.getId());
                 taskRepository.save(task);
                 List<TaskEmail> emails = taskEmailRepository.findByTaskId(task.getId());
-                String title=task.getTaskGroup()+"-"+task.getJobName()+"执行异常";
+                String title=task.getJobGroup()+"-"+task.getJobName()+"执行异常";
                 String content=task.getFailReason();
                 emailSender.sendTaskFail(emails,title,content);
             }

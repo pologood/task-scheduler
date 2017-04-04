@@ -92,7 +92,7 @@ public class TaskFeedJob implements Job {
                 task.setStatus(TaskStatus.RETRYFAIL.getId());
                 taskRepository.save(task);
                 List<TaskEmail> emails = this.taskEmailRepository.findByTaskId(task.getId());
-                String title=task.getTaskGroup()+"-"+task.getJobName()+"执行异常"+task.getSendTime();
+                String title=task.getJobGroup()+"-"+task.getJobName()+"执行异常"+task.getSendTime();
                 String content=task.getFailReason();
                 emailSender.sendTaskFail(emails,title,content);
             }

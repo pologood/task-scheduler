@@ -48,7 +48,7 @@ public class TaskTest extends ApplicationTest {
         List<TaskModel> taskModels = Lists.newArrayList();
         for(int i=0;i<2;i++){
             TaskModel taskModel = new TaskModel();
-            taskModel.setTaskGroup("service");
+            taskModel.setJobGroup("service");
             taskModel.setJobName("testJob"+i);
             if(i==1){
                 taskModel.setBeanName("annotationDemo");
@@ -92,7 +92,7 @@ public class TaskTest extends ApplicationTest {
         for(int i=0;i<3;i++){
             TaskModel taskModel = new TaskModel();
             taskModel.setTaskId(23);
-            taskModel.setTaskGroup(group);
+            taskModel.setJobGroup(group);
             taskModel.setJobName("jobNameTest");
             taskModel.setBeanName("annotationDemo");
             taskModel.setCronExpression("xxoo");

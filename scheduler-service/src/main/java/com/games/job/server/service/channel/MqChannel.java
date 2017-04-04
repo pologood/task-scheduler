@@ -35,7 +35,7 @@ public class MqChannel implements Channel{
 
     @Override
     public void putTask(TaskModel task) {
-        kafkaTemplate.send(task.getTaskGroup(),task);
+        kafkaTemplate.send(task.getJobGroup(),task);
     }
 
 

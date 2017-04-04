@@ -54,12 +54,16 @@ public class ScheduledJob implements Job {
             return;
         }
         Task task = taskRepository.findOne(taskId);
+        if(task==null){
+            logger.error("ScheduledJob@execute - task is null");
+            return;
+        }
         addLastTaskRecord(task);
         initThisTimeTask(task);
 
         TaskModel taskModel = new TaskModel();
         taskModel.setTaskId(task.getId());
-        taskModel.setTaskGroup(task.getTaskGroup());
+        taskModel.setJobGroup(task.getJobGroup());
         taskModel.setJobName(task.getJobName());
         taskModel.setBeanName(task.getBeanName());
         taskModel.setPath(task.getPath());

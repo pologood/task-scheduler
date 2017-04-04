@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @CrossOrigin(maxAge = 3600L)
 @RequestMapping("/task")
@@ -30,18 +32,25 @@ public class TaskController {
 
 
     @RequestMapping(value = "/list")
-    public String  getTasks(Model model) {
+    public void getTasks(Model model) {
         // TODO: 2017/3/4 分页、查询
-        List<Task> list =  taskService.getTasks();
-        model.addAllAttributes(list);
-        return "/task/list";
+        List<Task> tasks =  taskService.getTasks();
+        model.addAttribute("tasks",tasks);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.GET)
-    public Result addTask(){
+    public void addTask(Model model){
+    }
+
+    @RequestMapping(value = "/save",method = RequestMethod.GET)
+    @ResponseBody
+    public Result saveTask(HttpServletRequest request){
+        System.out.println("TaskController#saveTask:"+request.getParameter("jobGroup"));
         // TODO: 2017/3/4  1.cron表达式正确性校验；2.group+jobName唯一性校验；3.restful正确性校验；
         return new Result();
     }
+
+
 
     @RequestMapping(value = "/del/{taskId}",method = RequestMethod.GET)
     public Result delTask(@PathVariable(value = "taskId") Integer taskId) {

@@ -13,7 +13,7 @@ public class Task extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
-    private String taskGroup;
+    private String jobGroup;
     private String jobName;
     private String cronExpression;
     private Date beginTime;
@@ -24,9 +24,11 @@ public class Task extends BaseModel{
     private Integer  retryCounted;
     private Date  sendTime;
     private String beanName;
+    private Integer valid;
     private String path;//restful调用地址
     private String failReason;
     private Boolean fail=false;
+    private String memo;
 
     public Integer getId() {
         return Id;
@@ -36,12 +38,12 @@ public class Task extends BaseModel{
         Id = id;
     }
 
-    public String getTaskGroup() {
-        return taskGroup;
+    public String getJobGroup() {
+        return jobGroup;
     }
 
-    public void setTaskGroup(String taskGroup) {
-        this.taskGroup = taskGroup;
+    public void setJobGroup(String jobGroup) {
+        this.jobGroup = jobGroup;
     }
 
     public String getJobName() {
@@ -146,6 +148,22 @@ public class Task extends BaseModel{
 
     public void setFail(Boolean fail) {
         this.fail = fail;
+    }
+
+    public Integer getValid() {
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 }
 
