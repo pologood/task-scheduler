@@ -2,6 +2,8 @@ package com.games.job.server.controller;
 
 import java.util.List;
 
+import com.games.job.common.model.TaskModel;
+import com.games.job.common.utils.JsonUtils;
 import com.games.job.server.entity.Task;
 import com.games.job.server.entity.TaskEmail;
 import com.games.job.server.entity.TaskRecord;
@@ -10,6 +12,7 @@ import com.games.job.server.entity.restful.Result;
 import com.games.job.server.repository.TaskEmailRepository;
 import com.games.job.server.repository.TaskRecordRepository;
 import com.games.job.server.service.TaskService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,34 +41,34 @@ public class TaskController {
         model.addAttribute("tasks",tasks);
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
-    public void addTask(Model model){
+    @RequestMapping(value = "/form",method = RequestMethod.GET)
+    public void addTask(HttpServletRequest request,Model model){
+        String taskId = request.getParameter("taskId");
+        Task task = new Task();
+        if(StringUtils.isNotBlank(taskId)){
+            task = taskService.getTask(Integer.parseInt(taskId));
+        }
+        model.addAttribute("task",task);
     }
 
-    @RequestMapping(value = "/save",method = RequestMethod.GET)
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
     @ResponseBody
-    public Result saveTask(HttpServletRequest request){
-        System.out.println("TaskController#saveTask:"+request.getParameter("jobGroup"));
-        // TODO: 2017/3/4  1.cron表达式正确性校验；2.group+jobName唯一性校验；3.restful正确性校验；
-        return new Result();
+    public Result saveTask(String task){
+        // TODO: 2017/3/4  1.cron表达式正确性校验；2.module+group+jobName唯一性校验(数据库中)；3.restful正确性校验；
+        TaskModel taskModel = JsonUtils.fromJson(task,TaskModel.class);
+        taskService.addOrModQuartz(taskModel);
+        return new Result<String>().setData(taskModel.getJobName()+"["+taskModel.getJobGroup()+"]"+"添加成功");
     }
-
-
 
     @RequestMapping(value = "/del/{taskId}",method = RequestMethod.GET)
-    public Result delTask(@PathVariable(value = "taskId") Integer taskId) {
+    public String delTask(@PathVariable(value = "taskId") Integer taskId) {
         taskService.delQuartz(taskId);
-        return new Result();
+        return "task/list";
     }
 
-    @RequestMapping(value = "/mod/{taskId}",method = RequestMethod.GET)
-    public Result modJob(@PathVariable(value = "taskId") Integer taskId){
-        // TODO: 2017/3/4  1.cron表达式正确性校验；2.group+jobName唯一性校验；3.restful正确性校验；
-        return new Result();
-    }
-
-    @RequestMapping(value = "/get/{taskId}",method = RequestMethod.GET)
-    public Result<TaskVO> getTask(@PathVariable(value = "taskId") Integer taskId){
+    @RequestMapping(value = "/view",method = RequestMethod.GET)
+    public void getTask(HttpServletRequest request,Model model){
+        Integer taskId = Integer.valueOf(request.getParameter("taskId"));
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(taskId);
         List<TaskEmail> taskEmails = taskEmailRepository.findByTaskId(taskId);
         Task task = taskService.getTask(taskId);
@@ -73,7 +76,7 @@ public class TaskController {
         taskVO.setTask(task);
         taskVO.setRecords(taskRecords);
         taskVO.setEmails(taskEmails);
-        return new Result<>().setData(taskVO);
+        model.addAttribute("taskVO",taskVO);
     }
 
 }

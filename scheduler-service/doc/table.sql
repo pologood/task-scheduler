@@ -211,9 +211,10 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `qrtz_task`;
 CREATE TABLE `qrtz_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `job_group` varchar(100) NOT NULL DEFAULT '' COMMENT '任务所属组',
-  `bean_name` varchar(100) NOT NULL DEFAULT '' COMMENT 'task 实例定时任务bean名称',
-  `job_name` varchar(100) NOT NULL DEFAULT '' COMMENT '任务名称',
+  `module` varchar(32) NOT NULL DEFAULT '' COMMENT '任务所属模块',
+  `job_group` varchar(32) NOT NULL DEFAULT '' COMMENT '任务所属组',
+  `bean_name` varchar(32) NOT NULL DEFAULT '' COMMENT 'task 实例定时任务bean名称',
+  `job_name` varchar(32) NOT NULL DEFAULT '' COMMENT '任务名称',
   `cron_expression` varchar(100) NOT NULL DEFAULT '' COMMENT '任务cron表达式',
   `begin_time` DATETIME  DEFAULT null COMMENT '任务开始执行时间',
   `status` TINYINT NOT NULL DEFAULT 0 COMMENT '任务执行状态',

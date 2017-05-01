@@ -12,6 +12,7 @@ import java.util.Date;
 
 public class TaskModel{
 
+    private String module;
     private String jobGroup;
     private String jobName;
     private String cronExpression;
@@ -26,6 +27,7 @@ public class TaskModel{
     private String path;
     private String failReason;
     private Boolean fail=false;
+    private Integer valid;
 
     public TaskModel clone() {
         return this;
@@ -188,5 +190,21 @@ public class TaskModel{
 
     public void setFail(Boolean fail) {
         this.fail = fail;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public Integer getValid() {
+        return valid;
+    }
+
+    public void setValid(Integer valid) {
+        this.valid = valid;
     }
 }

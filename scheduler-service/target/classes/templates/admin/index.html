@@ -35,6 +35,7 @@
             </div>
         </div>
     </div>
+
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree left_menu_ul">
@@ -53,6 +54,12 @@
                         <cite>报警管理</cite>
                     </a>
                 </li>
+                <li class="layui-nav-item ">
+                    <a  target="main" th:href="@{/email/list}">
+                        <i class="layui-icon">&#xe642;</i>
+                        <cite>模块管理</cite>
+                    </a>
+                </li>
             </ul>
             <ul class="layui-nav layui-nav-tree left_menu_ul content_put_manage">
                 <li class="layui-nav-item layui-nav-title">
@@ -61,11 +68,11 @@
                 <li class="layui-nav-item first-item">
                     <a target="main" th:href="@{/metrics/index}">
                         <i class="layui-icon">&#xe609;</i>
-                        <cite>服务监控</cite>
+                        <cite>实例监控</cite>
                     </a>
                 </li>
                 <li class="layui-nav-item content_manage">
-                    <a target="main" th:href="@{/metrics/redis}">
+                    <a target="main" th:href="@{/monitor/redis/info}">
                         <i class="layui-icon">&#xe60a;</i>
                         <cite>Redis监控</cite>
                     </a>
@@ -74,6 +81,12 @@
                     <a target="main" th:href="@{/metrics/mq}">
                         <i class="layui-icon">&#xe63a;</i>
                         <cite>Mq监控</cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item first-item">
+                    <a target="main" th:href="@{/metrics/index}">
+                        <i class="layui-icon">&#xe609;</i>
+                        <cite>服务器监控</cite>
                     </a>
                 </li>
             </ul>

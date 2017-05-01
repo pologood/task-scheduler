@@ -48,7 +48,7 @@ public class TaskService {
         }
     }
     private void  addOrModTask(TaskModel taskModel){
-        Task task =  taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task task =  taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         if(task==null){
             task = new Task();
         }

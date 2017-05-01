@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>分布式任务调度中心-添加任务</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/layer/skin/default/layer.css}"/>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"/>
+    <script type="text/javascript" th:src="@{/layer/layer.js}"/>
+
+    <script type="text/javascript">
+        layui.use('form', function(){
+            var form = layui.form();
+            form.on('submit(task)', function(data){
+                if(data.field.valid=='on'){
+                    data.field.valid=1;
+                }else{
+                    data.field.valid=0;
+                }
+                var task=JSON.stringify(data.field);
+                $.post("/task/save",{task:task,_time:new Date().getTime()},function(result){
+                    if(result.code==200){
+                        layer.msg(result.data);
+                        location.href="/task/list";
+                    }else{
+                        layer.msg('操作失败');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="layui-tab-brief main-tab-container">
+    <div style="border-bottom: 1px #E2E2E2 solid;padding-bottom: 5px;">
+        <span style="margin-left: 10px;font-size: 15px;color: #595959;">
+            调度中心 >
+            管理任务 >
+            添加任务
+        </span>
+    </div>
+    <div class="layui-tab-content">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">Module:</label>
+                <div class="layui-input-block">
+                    <select name="module" lay-verify="required"  th:disabled="${task.id}">
+                        <option value="co-food">co-food</option>
+                        <option value="co-channel">co-channel</option>
+                        <option value="co-user">co-user</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">JobGroup:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="jobGroup" placeholder="JobGroup" lay-verify="required" class="layui-input"
+                           th:value="${task.jobGroup}" value="JobGroup"  th:disabled="${task.id}"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">JobName:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="jobName" placeholder="JobName" lay-verify="required" class="layui-input"  th:disabled="${task.id}" th:value="${task.jobName}" value="JobName"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Bean/Path:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="beanName" placeholder="Bean/Path" lay-verify="required" class="layui-input" th:value="${task.beanName}"  value="BeanName"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Cron:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="cronExpression" placeholder="Cron" lay-verify="required" class="layui-input" th:value="${task.cronExpression}" value="0 0/5 * * * ?"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Retry:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="retryCount" placeholder="Retry"  th:value="${task.retryCount}" class="layui-input"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Valid:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="valid" lay-skin="switch" checked="checked"/>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">Memo:</label>
+                <div class="layui-input-block">
+                    <textarea name="memo" placeholder="Memo" class="layui-textarea" th:text="${task.memo}"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="button" class="layui-btn" lay-filter="task" lay-submit=""  value="Submit"/>
+                    <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                    <button type="button" class="layui-btn layui-btn-primary" onclick="javascript:history.back();">Back</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+

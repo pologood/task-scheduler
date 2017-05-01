@@ -13,6 +13,7 @@ public class Task extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer Id;
+    private String module;
     private String jobGroup;
     private String jobName;
     private String cronExpression;
@@ -164,6 +165,14 @@ public class Task extends BaseModel{
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
     }
 }
 

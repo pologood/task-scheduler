@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>分布式任务调度中心-Redis监控</title>
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"/>
+    <script>
+        layui.use('element', function(){
+
+        });
+    </script>
+</head>
+
+<body>
+<div class="layui-tab-brief main-tab-container">
+    <div style="border-bottom: 1px #E2E2E2 solid;padding-bottom: 5px;">
+        <span style="margin-left: 10px;font-size: 15px;color: #595959;">
+            系统监控 >
+            Redis监控
+        </span>
+    </div>
+    <div class="layui-tab-content">
+        <blockquote class="layui-elem-quote">
+            <div style="font-size: 20px;"><strong>Basic Info</strong></div>
+            <div>redis_version：<span th:text="${redisInfo.redis_version}">2.4.9</span></div>
+            <div>uptime_in_days：<span th:text="${redisInfo.uptime_in_days}">0</span></div>
+            <div>uptime_in_seconds：<span th:text="${redisInfo.uptime_in_seconds}">20960</span></div>
+            <div>aof_enabled：<span th:text="${redisInfo.aof_enabled}">0</span></div>
+            <div>multiplexing_api：<span th:text="${redisInfo.multiplexing_api}">winsock2</span></div>
+            <div>total_commands_processed：<span th:text="${redisInfo.total_commands_processed}">1308</span></div>
+            <div>total_connections_received：<span th:text="${redisInfo.total_connections_received}">44</span></div>
+            <div>used_memory_rss：<span th:text="${redisInfo.used_memory_rss}">1201240</span></div>
+            <div>used_memory：<span th:text="${redisInfo.used_memory}">1201240</span></div>
+            <div>mem_fragmentation_ratio：<span th:text="${redisInfo.mem_fragmentation_ratio}">1</span></div>
+            <div>connected_clients：<span th:text="${redisInfo.connected_clients}">2</span></div>
+            <div>blocked_clients：<span th:text="${redisInfo.blocked_clients}">2</span></div>
+            <div>role：<span th:text="${redisInfo.role}">master</span></div>
+            <div>connected_slaves：<span th:text="${redisInfo.connected_slaves}">0</span></div>
+            <div>keyspace_hits：<span th:text="${redisInfo.keyspace_hits}">210</span></div>
+            <div>keyspace_misses：<span th:text="${redisInfo.keyspace_misses}">532</span></div>
+            <div>expired_keys：<span th:text="${redisInfo.expired_keys}">0</span></div>
+            <div>evicted_keys：<span th:text="${redisInfo.evicted_keys}">0</span></div>
+        </blockquote>
+
+        <blockquote class="layui-elem-quote">
+            <div style="font-size: 20px;"><strong>Memory Info</strong></div>
+            <div>used_memory_human：<span th:text="${redisInfo.used_memory_human}">1.15M</span></div>
+            <div>used_memory_peak_human：<span th:text="${redisInfo.used_memory_peak_human}">1.16M</span></div>
+            <div>uptime_in_seconds：<span th:text="${redisInfo.uptime_in_seconds}">20960</span></div>
+        </blockquote>
+
+        <blockquote class="layui-elem-quote">
+            <div style="font-size: 20px;"><strong>Cpu Info</strong></div>
+            <div>used_cpu_sys：<span th:text="${redisInfo.used_cpu_sys}">8.12</span></div>
+            <div>used_cpu_user：<span th:text="${redisInfo.used_cpu_user}">3.83</span></div>
+            <div>used_cpu_sys_children：<span th:text="${redisInfo.used_cpu_sys_children}">0.00</span></div>
+            <div>used_cpu_user_children：<span th:text="${redisInfo.used_cpu_user_children}">0.00</span></div>
+        </blockquote>
+    </div>
+</div>
+</body>
+</html>

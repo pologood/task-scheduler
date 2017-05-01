@@ -23,17 +23,18 @@ public class TaskServiceTest extends ApplicationTest{
     @Test
     public void  task_addQuartzJob() {
         TaskModel taskModel = new TaskModel();
+        taskModel.setModule("co-channel");
         taskModel.setJobName("testJob");
-        taskModel.setJobGroup("my-server");
+        taskModel.setJobGroup("group1");
         taskModel.setBeanName("testBeanName");
         taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(5);
-        Task task = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task task = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
         taskService.addOrModQuartz(taskModel);
-        Task insertTask = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task insertTask = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getStatus().intValue()== TaskStatus.INIT.getId());
         Assert.assertTrue(insertTask.getRetryCount().intValue()==5);
         Assert.assertTrue(insertTask.getBeanName().equals(taskModel.getBeanName()));
@@ -50,7 +51,7 @@ public class TaskServiceTest extends ApplicationTest{
         oldTask.setRetryCounted(0);
         oldTask.setStatus(TaskStatus.INIT.getId());
         oldTask.setCreateTime(new Date());
-        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByModuleAndJobGroupAndJobName(oldTask.getModule(),oldTask.getJobGroup(),oldTask.getJobName());
         if(task==null){
             taskRepository.save(oldTask);
         }
@@ -62,7 +63,7 @@ public class TaskServiceTest extends ApplicationTest{
         taskModel.setRetryCount(2);
         oldTask.setCreateTime(new Date());
         taskService.addOrModQuartz(taskModel);
-        Task insertTask = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task insertTask = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         Assert.assertTrue(insertTask.getCronExpression().equals(taskModel.getCronExpression()));
         Assert.assertTrue(insertTask.getRetryCount().intValue()==taskModel.getRetryCount().intValue());
     }
@@ -77,11 +78,11 @@ public class TaskServiceTest extends ApplicationTest{
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(0);
-        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByModuleAndJobGroupAndJobName(oldTask.getModule(),oldTask.getJobGroup(),oldTask.getJobName());
         if(task==null){
             taskRepository.save(oldTask);
         }
-        Task jobGroupAndJobName = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Task jobGroupAndJobName = taskRepository.findByModuleAndJobGroupAndJobName(oldTask.getModule(),oldTask.getJobGroup(),oldTask.getJobName());
         Assert.assertNotNull(jobGroupAndJobName);
         taskService.delQuartz(jobGroupAndJobName.getId());
         Task byIdTask  =  taskRepository.findById(jobGroupAndJobName.getId());
@@ -99,12 +100,12 @@ public class TaskServiceTest extends ApplicationTest{
         oldTask.setRetryCount(5);
         oldTask.setRetryCounted(0);
         oldTask.setStatus(TaskStatus.INIT.getId());
-        Task task = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Task task = taskRepository.findByModuleAndJobGroupAndJobName(oldTask.getModule(),oldTask.getJobGroup(),oldTask.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
         taskRepository.save(oldTask);
-        Task jobGroupAndJobName = taskRepository.findByJobGroupAndJobName(oldTask.getJobGroup(),oldTask.getJobName());
+        Task jobGroupAndJobName = taskRepository.findByModuleAndJobGroupAndJobName(oldTask.getModule(),oldTask.getJobGroup(),oldTask.getJobName());
 
         TaskModel taskModel = new TaskModel();
         taskModel.setTaskId(jobGroupAndJobName.getId());

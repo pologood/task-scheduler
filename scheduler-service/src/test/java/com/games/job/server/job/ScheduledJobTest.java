@@ -38,16 +38,16 @@ public class ScheduledJobTest extends ApplicationTest {
         taskModel.setBeanName("testBeanName");
         taskModel.setCronExpression("0 0/1 * * * ?");
         taskModel.setRetryCount(5);
-        Task task = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task task = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         if(task!=null){
             taskRepository.delete(task.getId());
         }
         taskService.addOrModQuartz(taskModel);
         taskRecordRepository.deleteAll();
 
-        Task task1 = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task task1 = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
         scheduledJob.dealScheduledJob(task1.getId());
-        Task result = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+        Task result = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
 
         Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
         List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
@@ -64,20 +64,20 @@ public class ScheduledJobTest extends ApplicationTest {
        taskModel.setBeanName("testBeanName");
        taskModel.setCronExpression("0 0/5 * * * ?");
        taskModel.setRetryCount(5);
-       Task task = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+       Task task = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
        if(task!=null){
            taskRepository.delete(task.getId());
        }
        taskService.addOrModQuartz(taskModel);
 
-       Task task1 = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+       Task task1 = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
        task1.setStatus(TaskStatus.NOFEEDBACK.getId());
        taskRepository.save(task1);
 
        taskRecordRepository.deleteAll();
        scheduledJob.dealScheduledJob(task1.getId());
 
-       Task result = taskRepository.findByJobGroupAndJobName(taskModel.getJobGroup(),taskModel.getJobName());
+       Task result = taskRepository.findByModuleAndJobGroupAndJobName(taskModel.getModule(),taskModel.getJobGroup(),taskModel.getJobName());
        Assert.assertTrue(result.getStatus().intValue()== TaskStatus.SEND.getId());
 
        List<TaskRecord> taskRecords = taskRecordRepository.findByTaskId(result.getId());
